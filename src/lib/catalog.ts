@@ -4,7 +4,8 @@ import path from "node:path"
 import { expandQueryTokens, tokenizeQuery } from "@/lib/synonyms"
 import type { IconIndex, IconItem, IconRecord, Library } from "@/lib/types"
 
-const INDEX_PATH = path.join(process.cwd(), "generated", "icon-index.json")
+const GENERATED_DIR = path.join(process.cwd(), "generated")
+const INDEX_PATH = path.join(GENERATED_DIR, "icon-index.json")
 
 type Catalog = {
   index: IconIndex
@@ -47,7 +48,8 @@ function libraryMeta(slug: string): Library | undefined {
 }
 
 export function readSvg(record: IconRecord): string {
-  const abs = path.join(process.cwd(), record.file)
+  const relative = record.file.replace(/^generated[\\/]/, "")
+  const abs = path.join(GENERATED_DIR, relative)
   return fs.readFileSync(abs, "utf8")
 }
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * Build a metadata index from npm icon packs.
- * Hugeicons ships JS arrays — those are converted to SVG under generated/svgs.
+ * SVG files are copied under generated/svgs so Vercel functions can read them
+ * (node_modules assets are not included in the serverless file trace).
+ * Hugeicons ships JS arrays — those are converted to SVG in the same tree.
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -55,6 +57,13 @@ if (ifMissing && fs.existsSync(INDEX_PATH)) {
 
 function rel(abs) {
   return path.relative(ROOT, abs).split(path.sep).join("/")
+}
+
+function stagedSvg(srcAbs, ...parts) {
+  const dest = path.join(OUT_DIR, "svgs", ...parts)
+  fs.mkdirSync(path.dirname(dest), { recursive: true })
+  fs.copyFileSync(srcAbs, dest)
+  return rel(dest)
 }
 
 function normalizeName(stem) {
@@ -141,7 +150,7 @@ function ingestLucide() {
       name,
       style: "outline",
       tags: name.replace(/-/g, " "),
-      file: rel(path.join(dir, fname)),
+      file: stagedSvg(path.join(dir, fname), "lucide", fname),
     })
     n++
   }
@@ -161,7 +170,7 @@ function ingestTabler() {
         name,
         style,
         tags: name.replace(/-/g, " "),
-        file: rel(path.join(styleDir, fname)),
+        file: stagedSvg(path.join(styleDir, fname), "tabler", style, fname),
       })
       n++
     }
@@ -185,7 +194,7 @@ function ingestPhosphor() {
         name,
         style,
         tags: name.replace(/-/g, " "),
-        file: rel(path.join(styleDir, fname)),
+        file: stagedSvg(path.join(styleDir, fname), "phosphor", style, fname),
       })
       n++
     }
@@ -216,7 +225,7 @@ function ingestRemix() {
         name,
         style,
         tags: `${name.replace(/-/g, " ")} ${category.toLowerCase()}`,
-        file: rel(path.join(catDir, fname)),
+        file: stagedSvg(path.join(catDir, fname), "remix", category, fname),
       })
       n++
     }
@@ -257,6 +266,8 @@ const ingestors = {
   hugeicons: ingestHugeicons,
   remix: ingestRemix,
 }
+
+fs.rmSync(path.join(OUT_DIR, "svgs"), { recursive: true, force: true })
 
 const libraries = []
 for (const lib of LIBRARIES) {
