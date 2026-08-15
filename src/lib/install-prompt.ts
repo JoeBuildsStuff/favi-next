@@ -7,8 +7,8 @@ import {
   type FaviconSourceMode,
 } from "@/lib/favicon-settings"
 
-/** Public API agents should hit (not localhost). */
-export const FAVI_PUBLIC_BASE = "https://favi.joe-taylor.me"
+/** Public Vercel deployment agents should hit (not localhost or OptiPlex). */
+export const FAVI_PUBLIC_BASE = "https://getfavi.vercel.app"
 
 export type InstallPromptInput = {
   selected: IconItem | null

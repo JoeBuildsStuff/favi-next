@@ -14,6 +14,14 @@ pnpm dev           # http://127.0.0.1:3000
 
 Health: http://127.0.0.1:3000/api/health
 
+Production: https://getfavi.vercel.app  
+Agent index: https://getfavi.vercel.app/llms.txt  
+Skill: https://getfavi.vercel.app/skills/favi/SKILL.md
+
+```bash
+npx skills add JoeBuildsStuff/favi-next
+```
+
 ## API
 
 | Method | Path | Purpose |

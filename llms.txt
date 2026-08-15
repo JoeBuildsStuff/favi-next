@@ -1,0 +1,34 @@
+# favi
+> Public favicon picker and HTTP API for free icon libraries (Lucide, Tabler, Phosphor, Hugeicons free, Remix Icon). Search icons, recolor them, compose initials, and download a favicon zip (SVG + ICO + apple-touch + PWA / maskable pack).
+
+Use the HTTP API for agents. Prefer curl over browser automation. No auth required. Base URL: https://getfavi.vercel.app
+
+This is the Next.js app (public source). Local override: http://127.0.0.1:3000
+
+## Install agent skill
+
+```bash
+npx skills add JoeBuildsStuff/favi-next
+```
+
+Install a single skill:
+
+```bash
+npx skills add JoeBuildsStuff/favi-next --skill favi
+```
+
+## Docs
+- [Agent skill (live)](https://getfavi.vercel.app/skills/favi/SKILL.md): Step-by-step API workflow for searching icons and exporting favicons
+- [GitHub skill](https://github.com/JoeBuildsStuff/favi-next/tree/main/skills/favi): Canonical `SKILL.md` in this public repo
+- [Human UI](https://getfavi.vercel.app/): Visual search, compose, download zip
+
+## API
+- [Health](https://getfavi.vercel.app/api/health): Service status and indexed icon count
+- [Libraries](https://getfavi.vercel.app/api/libraries): Available packs, licenses, styles
+- [Search icons](https://getfavi.vercel.app/api/icons?q=image&limit=12): `q`, `library`, `style`, `limit` (1–300), `offset` (`q` expands curated synonyms such as photo→image, trash→delete)
+- [Exact icon](https://getfavi.vercel.app/api/icons/lucide/image?style=outline): `GET /api/icons/:library/:name?style=`
+- [Export favicon](https://getfavi.vercel.app/api/export): `POST` JSON `{library,name,style}` **or** `{text}` (1–2 initials) plus `{bg,bg_mode,bg_to,bg_angle,fill,stroke,padding,stroke_scale,shape,include_dark_mode,dark_bg,dark_bg_to,dark_fill,dark_stroke,site_name}` → zip always includes SVG/ICO/apple-touch/PWA pack (`README.txt` includes HTML / Next.js install notes; optional `favicon-dark.svg` + `prefers-color-scheme` media links; optional 2-stop linear plate via `bg_mode=linear`; initials via `text`)
+
+## Optional
+- [App source](https://github.com/JoeBuildsStuff/favi-next): Public Next.js repository
+- Shareable UI config: `https://getfavi.vercel.app/?library=tabler&name=icons&style=outline`
