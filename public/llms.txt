@@ -3,6 +3,14 @@
 
 Use the HTTP API for agents. Prefer curl over browser automation. No auth required. Base URL: https://getfavi.vercel.app
 
+Production is rate-limited by client IP (Vercel WAF). Over limit → HTTP 429; wait and retry, do not poll. Local `http://127.0.0.1:3000` is not limited.
+
+| Method | Path | Limit |
+| --- | --- | --- |
+| `POST` | `/api/export` | 20 / 60s / IP |
+| `GET` | `/api/icons`, `/api/icons/:library/:name` | 120 / 60s / IP |
+| `GET` | `/api/health`, `/api/libraries` | 40 / 60s / IP |
+
 This is the Next.js app (public source). Local override: http://127.0.0.1:3000
 
 ## Install agent skill

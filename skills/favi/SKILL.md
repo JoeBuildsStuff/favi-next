@@ -15,6 +15,16 @@ Prefer HTTP against the public API. Do not drive the browser UI unless the user 
 **Base URL:** `https://getfavi.vercel.app`  
 **Local override:** `http://127.0.0.1:3000`
 
+Production rate limits (per client IP, Vercel WAF). Over limit → **429**; wait and retry. Do not poll or retry in a tight loop. Local override is not rate-limited.
+
+| Method | Path | Limit |
+|--------|------|-------|
+| `POST` | `/api/export` | 20 / 60s |
+| `GET` | `/api/icons` and `/api/icons/:library/:name` | 120 / 60s |
+| `GET` | `/api/health` and `/api/libraries` | 40 / 60s |
+
+Typical agent flow (search → one lookup → one export) stays well under these caps.
+
 Human UI: https://getfavi.vercel.app  
 Agent index: https://getfavi.vercel.app/llms.txt  
 Source: https://github.com/JoeBuildsStuff/favi-next
