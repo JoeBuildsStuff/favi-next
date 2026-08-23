@@ -53,6 +53,9 @@ describe("API_CATALOG", () => {
     expect(
       entry?.["service-doc"]?.some((link) => link.href.endsWith("/docs/vercel"))
     ).toBe(true)
+    expect(entry?.["service-doc"]?.some((link) => link.href.endsWith("/vercel"))).toBe(
+      true
+    )
     expect(entry?.item?.some((link) => link.href.endsWith("/api/v1/export"))).toBe(
       true
     )

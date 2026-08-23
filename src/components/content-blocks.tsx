@@ -1,5 +1,4 @@
-import type { ContentBlock, NestedNode } from "@/lib/agent-pages"
-import { nestBlocks } from "@/lib/agent-pages"
+import type { ContentBlock } from "@/lib/agent-pages"
 
 function Heading({
   level,
@@ -19,54 +18,43 @@ function Heading({
   return <h3 className="mt-6 text-lg font-semibold tracking-tight">{children}</h3>
 }
 
-function NestedBlocks({ nodes }: { nodes: NestedNode[] }) {
+function Block({ block }: { block: ContentBlock }) {
+  if (block.type === "h") {
+    return <Heading level={block.level}>{block.text}</Heading>
+  }
+  if (block.type === "p") {
+    return (
+      <p className="text-muted-foreground mt-3 text-sm leading-6">
+        {block.text}
+      </p>
+    )
+  }
+  if (block.type === "pre") {
+    return (
+      <pre
+        className="bg-muted mt-3 overflow-x-auto rounded-md p-3 text-xs leading-5"
+      >
+        <code>{block.text}</code>
+      </pre>
+    )
+  }
   return (
-    <>
-      {nodes.map((node, index) => {
-        if (node.type === "section") {
-          return (
-            <section key={index}>
-              <Heading level={node.heading.level}>{node.heading.text}</Heading>
-              <NestedBlocks nodes={node.children} />
-            </section>
-          )
-        }
-        if (node.type === "p") {
-          return (
-            <p key={index} className="text-muted-foreground mt-3 text-sm leading-6">
-              {node.text}
-            </p>
-          )
-        }
-        if (node.type === "pre") {
-          return (
-            <pre
-              key={index}
-              className="bg-muted mt-3 overflow-x-auto rounded-md p-3 text-xs leading-5"
-            >
-              <code>{node.text}</code>
-            </pre>
-          )
-        }
-        return (
-          <ul key={index} className="mt-3 list-disc space-y-2 pl-5 text-sm">
-            {node.items.map((item) => (
-              <li key={item.href}>
-                <a className="underline underline-offset-4" href={item.href}>
-                  {item.label}
-                </a>
-                {item.note ? (
-                  <span className="text-muted-foreground"> — {item.note}</span>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        )
-      })}
-    </>
+    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm">
+      {block.items.map((item) => (
+        <li key={item.href}>
+          <a className="underline underline-offset-4" href={item.href}>
+            {item.label}
+          </a>
+          {item.note ? (
+            <span className="text-muted-foreground"> — {item.note}</span>
+          ) : null}
+        </li>
+      ))}
+    </ul>
   )
 }
 
+/** Sequential H1/H2/H3 outline as direct article children (not wrapped in links or extra divs). */
 export function ContentBlocks({
   blocks,
   className,
@@ -74,9 +62,11 @@ export function ContentBlocks({
   blocks: ContentBlock[]
   className?: string
 }) {
-  return (
-    <div className={className}>
-      <NestedBlocks nodes={nestBlocks(blocks)} />
-    </div>
-  )
+  const inner = blocks.map((block, index) => (
+    <Block key={index} block={block} />
+  ))
+  if (className) {
+    return <div className={className}>{inner}</div>
+  }
+  return <>{inner}</>
 }

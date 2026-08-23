@@ -1,14 +1,17 @@
 import { describe, expect, it } from "vitest"
 
 import {
+  aboutBlocks,
   blocksToHtml,
   blocksToMarkdown,
   blocksToPlainText,
+  contactBlocks,
   getAgentPage,
   homepageBlocks,
   markdownHeaders,
   nestBlocks,
   notFoundBlocks,
+  privacyBlocks,
 } from "@/lib/agent-pages"
 
 describe("homepage crawler content", () => {
@@ -30,7 +33,7 @@ describe("homepage crawler content", () => {
     expect(blocksToPlainText(homepageBlocks).length).toBeGreaterThanOrEqual(500)
   })
 
-  it("nests H2/H3 inside H1 sections in HTML", () => {
+  it("uses a sequential H1 then H2 then H3 outline inside article, not inside links", () => {
     const tree = nestBlocks(homepageBlocks)
     expect(tree).toHaveLength(1)
     const h1 = tree[0]
@@ -38,9 +41,10 @@ describe("homepage crawler content", () => {
     if (h1?.type !== "section") throw new Error("expected section")
     expect(h1.children.some((node) => node.type === "section")).toBe(true)
     const html = blocksToHtml(homepageBlocks)
-    expect(html).toMatch(/<article>[\s\S]*<section>[\s\S]*<h1>/)
-    expect(html).toMatch(/<h1>[\s\S]*<section>[\s\S]*<h2>/)
-    expect(html).toMatch(/<h2>[\s\S]*<section>[\s\S]*<h3>/)
+    expect(html).toMatch(/<article>\s*<h1>/)
+    expect(html).toMatch(/<\/h1>[\s\S]*<h2>/)
+    expect(html).toMatch(/<\/h2>[\s\S]*<h3>/)
+    expect(html.includes("<a><h")).toBe(false)
   })
 })
 
@@ -49,15 +53,20 @@ describe("getAgentPage", () => {
     const forAgents = getAgentPage("/for-agents")
     const docs = getAgentPage("/docs")
     expect(forAgents.status).toBe(200)
-    expect(forAgents.title).toBe("favi developer resources")
+    expect(forAgents.title).toBe("getfavi (favi) developer resources")
     expect(docs.status).toBe(200)
-    expect(docs.title).toBe("favi developer resources")
+    expect(docs.title).toBe("getfavi (favi) developer resources")
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/OpenAPI/)
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/getfavi\.vercel\.app/)
-    expect(getAgentPage("/developers").title).toBe("favi developer resources")
+    expect(getAgentPage("/developers").title).toBe(
+      "getfavi (favi) developer resources"
+    )
     expect(getAgentPage("/getfavi").title).toBe("getfavi")
+    expect(getAgentPage("/vercel").title).toBe(
+      "Vercel developer resources for getfavi (favi)"
+    )
     expect(getAgentPage("/docs/vercel").title).toBe(
-      "Vercel developer resources for favi"
+      "Vercel developer resources for getfavi (favi)"
     )
     expect(getAgentPage("/docs/auth").title).toBe(
       "favi authentication (auth docs)"
@@ -92,7 +101,25 @@ describe("not-found recovery list", () => {
     const text = blocksToPlainText(notFoundBlocks)
     expect(text).toMatch(/llms\.txt/)
     expect(text).toMatch(/sitemap\.xml/)
-    expect(text).toMatch(/favi developer resources/)
+    expect(text).toMatch(/About getfavi/)
+    expect(text).toMatch(/Contact getfavi/)
+  })
+})
+
+describe("trust anchor pages", () => {
+  it("publishes /about, /contact, and /privacy with 500+ characters", () => {
+    for (const [path, blocks, title] of [
+      ["/about", aboutBlocks, "About getfavi"],
+      ["/contact", contactBlocks, "Contact getfavi"],
+      ["/privacy", privacyBlocks, "getfavi privacy"],
+    ] as const) {
+      const page = getAgentPage(path)
+      expect(page.status).toBe(200)
+      expect(page.title).toBe(title)
+      expect(page.blocks).toEqual(blocks)
+      expect(blocksToPlainText(blocks).length).toBeGreaterThanOrEqual(500)
+      expect(blocksToHtml(blocks)).toMatch(/<h1>/)
+    }
   })
 })
 

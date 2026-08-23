@@ -17,17 +17,19 @@ export const SITE_JSON_LD = {
       legalName: "favi",
       alternateName: [...SITE.alternateNames, "favi"],
       url: SITE.url,
-      sameAs: [SITE.github],
+      sameAs: [SITE.github, SITE.url],
       identifier: "getfavi",
+      logo: `${SITE.url}/opengraph-image`,
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer support",
-        url: SITE.github,
+        url: SITE.contact,
       },
       brand: {
         "@type": "Brand",
         name: "getfavi",
         alternateName: ["favi", "getfavi.vercel.app"],
+        url: SITE.url,
       },
     },
     {
@@ -51,7 +53,7 @@ export const SITE_JSON_LD = {
       url: `${SITE.url}/api/v1`,
       documentation: `${SITE.url}/openapi.json`,
       description:
-        "Public favi HTTP API on Vercel: search icon libraries and export favicon zips. Versioned at /api/v1/. No authentication. Developer resources at /docs and /docs/vercel.",
+        "Public getfavi (favi) HTTP API on Vercel: search icon libraries and export favicon zips. Versioned at /api/v1/. No authentication. Vercel developer resources at /vercel and /docs/vercel. OpenAPI spec, auth docs, webhooks, and MCP notes are listed from /docs.",
     },
   ],
 } as const

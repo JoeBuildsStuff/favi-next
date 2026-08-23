@@ -21,6 +21,7 @@ export const API_CATALOG = {
         { href: absoluteUrl("/developers"), type: "text/html" },
         { href: absoluteUrl("/docs/api"), type: "text/html" },
         { href: absoluteUrl("/docs/vercel"), type: "text/html" },
+        { href: absoluteUrl("/vercel"), type: "text/html" },
         { href: absoluteUrl("/docs/versioning"), type: "text/html" },
         { href: absoluteUrl("/docs/rate-limits"), type: "text/html" },
         { href: absoluteUrl("/docs/auth"), type: "text/html" },

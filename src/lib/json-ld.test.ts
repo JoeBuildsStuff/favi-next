@@ -11,5 +11,7 @@ describe("SITE_JSON_LD", () => {
     const org = graph.find((node) => node["@type"] === "Organization")
     expect(org?.name).toBe("getfavi")
     expect(org?.sameAs).toContain("https://github.com/JoeBuildsStuff/favi-next")
+    expect(org?.logo).toContain("opengraph-image")
+    expect(org?.contactPoint?.url).toContain("github.com")
   })
 })

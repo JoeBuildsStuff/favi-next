@@ -51,7 +51,11 @@ export function proxy(request: NextRequest) {
     pathname === "/for-agents" ||
     pathname === "/docs" ||
     pathname === "/developers" ||
-    pathname === "/getfavi"
+    pathname === "/getfavi" ||
+    pathname === "/vercel" ||
+    pathname === "/about" ||
+    pathname === "/contact" ||
+    pathname === "/privacy"
   ) {
     const sibling = pathname === "/" ? "/index.md" : `${pathname}.md`
     response.headers.append(

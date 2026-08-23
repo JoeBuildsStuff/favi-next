@@ -35,11 +35,12 @@ npx skills add JoeBuildsStuff/favi-next --skill favi
 
 ## favi developer resources
 
-- [favi developer resources](https://getfavi.vercel.app/docs): API docs, authentication, OpenAPI, webhooks, MCP notes (Vercel-hosted origin)
-- [favi developers](https://getfavi.vercel.app/developers): Same favi developer resources index
-- [favi developer resources (for-agents)](https://getfavi.vercel.app/for-agents): Same favi developer resources index
+- [getfavi (favi) developer resources](https://getfavi.vercel.app/docs): API docs, authentication, OpenAPI spec, auth docs, webhooks, MCP server notes (Vercel-hosted origin)
+- [favi developers](https://getfavi.vercel.app/developers): Same getfavi developer resources index
+- [favi developer resources (for-agents)](https://getfavi.vercel.app/for-agents): Same getfavi developer resources index
 - [favi API docs](https://getfavi.vercel.app/docs/api): HTTP API reference
-- [Vercel developer resources for favi](https://getfavi.vercel.app/docs/vercel): Named page for Vercel-hosted favi API docs, OpenAPI spec, auth docs, webhooks, MCP server
+- [Vercel developer resources](https://getfavi.vercel.app/vercel): getfavi API docs, OpenAPI spec, auth docs, webhooks, MCP server on Vercel
+- [Vercel developer resources for getfavi](https://getfavi.vercel.app/docs/vercel): Same Vercel developer resources index
 - [favi authentication (auth docs)](https://getfavi.vercel.app/docs/auth): No API keys, OAuth, or login
 - [favi webhooks](https://getfavi.vercel.app/docs/webhooks): Not offered; use the HTTP API
 - [favi MCP server](https://getfavi.vercel.app/docs/mcp): Not offered; use the HTTP API and skill
@@ -51,6 +52,9 @@ npx skills add JoeBuildsStuff/favi-next --skill favi
 - [favi API catalog](https://getfavi.vercel.app/.well-known/api-catalog): RFC 9727 linkset
 - [favi HTTP API index](https://getfavi.vercel.app/api/v1): JSON list of endpoints
 - [getfavi](https://getfavi.vercel.app/getfavi): Brand page for getfavi.vercel.app
+- [About getfavi](https://getfavi.vercel.app/about): Product and maintainer
+- [Contact getfavi](https://getfavi.vercel.app/contact): GitHub Issues
+- [getfavi privacy](https://getfavi.vercel.app/privacy): Request handling and data
 - [Agent skill (live)](https://getfavi.vercel.app/skills/favi/SKILL.md): Step-by-step API workflow for searching icons and exporting favicons
 - [GitHub skill](https://github.com/JoeBuildsStuff/favi-next/tree/main/skills/favi): Canonical `SKILL.md` in this public repo
 - [Human UI](https://getfavi.vercel.app/): Visual search, compose, download zip (canonical getfavi domain)

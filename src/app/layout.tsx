@@ -6,7 +6,7 @@ import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { jsonLdScript } from "@/lib/json-ld"
-import { SITE_DESCRIPTION, SITE_NAME, SITE_ORIGIN, SITE_TAGLINE } from "@/lib/site"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_OG_IMAGE, SITE_ORIGIN, SITE_TAGLINE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const geistSans = Geist({
@@ -54,11 +54,13 @@ export const metadata: Metadata = {
     title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     url: SITE_ORIGIN,
+    images: [SITE_OG_IMAGE],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE.url],
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],

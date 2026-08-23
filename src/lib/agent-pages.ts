@@ -129,6 +129,26 @@ const recoveryLinks: ContentLink[] = [
     label: "getfavi",
     note: "Canonical brand page for getfavi.vercel.app",
   },
+  {
+    href: `${SITE_ORIGIN}/vercel`,
+    label: "Vercel developer resources",
+    note: "getfavi API docs, OpenAPI spec, auth docs, webhooks, MCP server",
+  },
+  {
+    href: `${SITE_ORIGIN}/about`,
+    label: "About getfavi",
+    note: "What the product is and who maintains it",
+  },
+  {
+    href: `${SITE_ORIGIN}/contact`,
+    label: "Contact getfavi",
+    note: "GitHub issues for the public repository",
+  },
+  {
+    href: `${SITE_ORIGIN}/privacy`,
+    label: "Privacy",
+    note: "How getfavi handles requests and data",
+  },
 ]
 
 export const homepageBlocks: ContentBlock[] = [
@@ -136,7 +156,18 @@ export const homepageBlocks: ContentBlock[] = [
   { type: "p", text: SITE_DESCRIPTION },
   {
     type: "p",
-    text: "The canonical domain for favi is getfavi.vercel.app. Search for getfavi or favi favicon API to reach this origin (https://getfavi.vercel.app), not a generic “favi” dictionary sense. The public Next.js app is hosted on Vercel.",
+    text: "The canonical domain for favi is getfavi.vercel.app. Search for getfavi or favi favicon API to reach this origin (https://getfavi.vercel.app), not a generic “favi” dictionary sense. The public Next.js app is hosted on Vercel. Brand listings should use the name getfavi, the URL https://getfavi.vercel.app, and the public source https://github.com/JoeBuildsStuff/favi-next.",
+  },
+  { type: "h", level: 2, text: "How to read getfavi" },
+  { type: "h", level: 3, text: "For people using the picker" },
+  {
+    type: "p",
+    text: "The visual homepage is a favicon picker: search an icon library, recolor the plate, optionally compose initials, and download a zip. That UI hydrates in the browser. The same facts are written in this article so a crawler that never runs JavaScript still sees an H1, nested H2 and H3 headings, and more than five hundred characters of product copy.",
+  },
+  { type: "h", level: 3, text: "For agents using the HTTP API" },
+  {
+    type: "p",
+    text: "Agents should ignore the picker and call the public HTTP API. Start at /llms.txt or getfavi developer resources (/docs, /developers, /for-agents). Named Vercel developer resources, OpenAPI spec, auth docs, webhooks, and MCP server pages live at /vercel and /docs/vercel. Trust pages: /about, /contact, /privacy. Brand page: /getfavi.",
   },
   { type: "h", level: 2, text: "What favi is" },
   { type: "h", level: 3, text: "Icon libraries" },
@@ -159,7 +190,7 @@ export const homepageBlocks: ContentBlock[] = [
   { type: "h", level: 3, text: "HTTP API, OpenAPI, auth, webhooks, and MCP" },
   {
     type: "p",
-    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. Search for getfavi, favi API docs, favi OpenAPI spec, favi auth docs, favi webhooks, favi MCP server, or Vercel developer resources. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs, /developers, /docs/api, /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel, /docs/versioning, /docs/rate-limits, /getfavi.",
+    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. Search for getfavi, favi API docs, favi OpenAPI spec, favi auth docs, favi webhooks, favi MCP server, or Vercel developer resources. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs, /developers, /docs/api, /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel, /vercel, /docs/versioning, /docs/rate-limits, /getfavi, /about, /contact, /privacy.",
   },
   { type: "ul", items: recoveryLinks.slice(1) },
 ]
@@ -175,10 +206,10 @@ export const notFoundBlocks: ContentBlock[] = [
 ]
 
 export const developerBlocks: ContentBlock[] = [
-  { type: "h", level: 1, text: "favi developer resources" },
+  { type: "h", level: 1, text: "getfavi (favi) developer resources" },
   {
     type: "p",
-    text: "This page is the favi developer resources index for the public favicon HTTP API hosted on Vercel at getfavi.vercel.app. Use it when you need API docs, the OpenAPI spec, authentication notes, or the agent skill. No account is required.",
+    text: "This page is the getfavi (favi) developer resources index for the public favicon HTTP API hosted on Vercel at getfavi.vercel.app. Use it when you need favi API docs, the OpenAPI spec, auth docs, webhooks, MCP server notes, or the agent skill. Search for “Vercel developer resources”, “getfavi developer resources”, or “favi OpenAPI spec”. No account is required.",
   },
   { type: "h", level: 2, text: "When to use favi" },
   {
@@ -372,22 +403,23 @@ export const openApiDocBlocks: ContentBlock[] = [
 ]
 
 export const vercelDocBlocks: ContentBlock[] = [
-  { type: "h", level: 1, text: "Vercel developer resources for favi (getfavi)" },
+  { type: "h", level: 1, text: "Vercel developer resources for getfavi (favi)" },
   {
     type: "p",
-    text: "This page is the Vercel developer resources index for favi, the favicon HTTP API hosted on Vercel at getfavi.vercel.app. Use it when searching for “Vercel developer resources”, “favi Vercel”, OpenAPI spec, auth docs, webhooks, or MCP server for this product.",
+    text: "This page is the Vercel developer resources index for getfavi (also called favi), the favicon picker and HTTP API hosted on Vercel at https://getfavi.vercel.app. Use it when searching for Vercel developer resources, getfavi developer resources, favi API docs, OpenAPI spec, auth docs, webhooks, or MCP server for this product. The same index is published at /vercel and /docs/vercel so name-based queries can land on a predictable URL.",
   },
   { type: "h", level: 2, text: "Vercel-hosted API" },
   {
     type: "p",
-    text: "Production URL: https://getfavi.vercel.app. OpenAPI: /openapi.json. Auth: none (see /docs/auth). Rate limits are enforced by the Vercel WAF per client IP. Source: https://github.com/JoeBuildsStuff/favi-next.",
+    text: "Production URL: https://getfavi.vercel.app (Vercel). OpenAPI spec: /openapi.json. Auth docs: /docs/auth (no API keys). Webhooks: /docs/webhooks (not offered). MCP server: /docs/mcp (not offered; use HTTP). Rate limits are enforced by the Vercel WAF per client IP. Public source: https://github.com/JoeBuildsStuff/favi-next. Deploy notes: this Next.js app is the production origin; there is no separate staging API hostname.",
   },
   { type: "h", level: 2, text: "Named developer docs" },
   {
     type: "ul",
     items: [
-      { href: abs("/docs"), label: "favi developer resources" },
-      { href: abs("/docs/auth"), label: "favi authentication" },
+      { href: abs("/docs"), label: "getfavi developer resources" },
+      { href: abs("/vercel"), label: "Vercel developer resources" },
+      { href: abs("/docs/auth"), label: "favi authentication (auth docs)" },
       { href: abs("/docs/webhooks"), label: "favi webhooks" },
       { href: abs("/docs/mcp"), label: "favi MCP server" },
       { href: abs("/docs/openapi"), label: "favi OpenAPI spec" },
@@ -462,17 +494,71 @@ export const getfaviBlocks: ContentBlock[] = [
   { type: "h", level: 1, text: "getfavi" },
   {
     type: "p",
-    text: "getfavi is the brand name of favi, a public favicon picker and HTTP API. The canonical domain is https://getfavi.vercel.app (hosted on Vercel). Search for getfavi or favi favicon API to reach this origin. The GitHub repository is https://github.com/JoeBuildsStuff/favi-next.",
+    text: "getfavi is the brand name of favi, a public favicon picker and HTTP API. The canonical domain is https://getfavi.vercel.app (hosted on Vercel). Search for getfavi, getfavi.vercel.app, or favi favicon API to reach this origin rather than an unrelated dictionary sense of “favi”. The GitHub repository is https://github.com/JoeBuildsStuff/favi-next. This page is the brand landing so a clean search for getfavi can resolve to getfavi.vercel.app.",
   },
   { type: "h", level: 2, text: "Product" },
   {
     type: "p",
-    text: "getfavi indexes Lucide, Tabler, Phosphor, Hugeicons (free), and Remix Icon. Agents search icons and export a favicon zip over HTTP with no authentication. Developer resources: /docs. Visual picker: /.",
+    text: "getfavi indexes Lucide, Tabler, Phosphor, Hugeicons (free), and Remix Icon. People use the visual picker on the homepage. Agents search icons and export a favicon zip over HTTP with no authentication. Developer resources: /docs and Vercel developer resources at /vercel. Visual picker: /.",
   },
   { type: "h", level: 2, text: "Name, origin, and listings" },
   {
     type: "p",
-    text: "Name: getfavi (also favi). URL: https://getfavi.vercel.app. Public source: https://github.com/JoeBuildsStuff/favi-next. There is no separate telephone listing; contact is the GitHub repository. This page exists so a search for getfavi returns getfavi.vercel.app.",
+    text: "NAP for getfavi: Name getfavi (also favi). Address: online-only, no storefront. Phone: none. URL: https://getfavi.vercel.app. Contact: https://github.com/JoeBuildsStuff/favi-next/issues. SameAs: the GitHub repository. Use this exact name and URL in directories, READMEs, and press mentions so search engines associate getfavi with getfavi.vercel.app instead of a generic string. There is no redirect chain in front of the apex production host; https://getfavi.vercel.app is the canonical origin.",
+  },
+]
+
+export const aboutBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "About getfavi" },
+  {
+    type: "p",
+    text: "getfavi (product name favi) is a free, public favicon picker and HTTP API. It indexes open icon libraries — Lucide, Tabler, Phosphor, Hugeicons (free subset), and Remix Icon — so you can search an icon, recolor it, compose one or two initials, and download a favicon zip that includes SVG, ICO, apple-touch, and PWA / maskable assets. The canonical website is https://getfavi.vercel.app.",
+  },
+  { type: "h", level: 2, text: "Who maintains getfavi" },
+  {
+    type: "p",
+    text: "getfavi is maintained as a public Next.js application. Source code, issues, and license notes live in the GitHub repository https://github.com/JoeBuildsStuff/favi-next. There is no separate company storefront. Hosting is Vercel. Icon artwork remains the property of each library under that library’s license; getfavi does not sell icons and does not generate original artwork.",
+  },
+  { type: "h", level: 2, text: "How to use it" },
+  {
+    type: "p",
+    text: "People can use the visual picker on the homepage. Agents should call the HTTP API documented under getfavi developer resources (/docs) and Vercel developer resources (/vercel). Trust pages: /about, /contact, /privacy. No account is required.",
+  },
+]
+
+export const contactBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "Contact getfavi" },
+  {
+    type: "p",
+    text: "The public contact channel for getfavi is GitHub Issues on the favi-next repository. Open a bug, API question, or documentation request at https://github.com/JoeBuildsStuff/favi-next/issues. Include the getfavi URL you hit (https://getfavi.vercel.app), the HTTP method and path, and any RFC 9457 problem+json body. Do not send API keys; getfavi does not issue them.",
+  },
+  { type: "h", level: 2, text: "Name, address, phone" },
+  {
+    type: "p",
+    text: "Name: getfavi (favi). Canonical URL: https://getfavi.vercel.app. Public source: https://github.com/JoeBuildsStuff/favi-next. getfavi is an online-only service. There is no telephone number, no walk-in office, and no postal storefront. Support is through GitHub Issues. For security-sensitive reports, prefer a private GitHub security advisory on that repository if the issue would put users at risk; otherwise a public issue is enough.",
+  },
+  { type: "h", level: 2, text: "What we can help with" },
+  {
+    type: "p",
+    text: "Icon search mismatches, export zip contents, rate-limit 429s on Vercel, OpenAPI drift, and agent-skill steps. We cannot grant paid icon licenses, run an MCP server, or configure webhooks, because those are not part of getfavi.",
+  },
+]
+
+export const privacyBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "getfavi privacy" },
+  {
+    type: "p",
+    text: "getfavi does not offer user accounts, billing, or login. You can search icons and export a favicon zip without creating a profile. This page describes what the public site and HTTP API process when you use https://getfavi.vercel.app.",
+  },
+  { type: "h", level: 2, text: "What we process" },
+  {
+    type: "p",
+    text: "Browser and API requests reach Vercel’s network. Vercel may log standard request metadata (time, path, status, user-agent, and client IP) for hosting, DDoS protection, and the production WAF rate limits described in /docs/rate-limits. Search queries and export JSON bodies are used to build a response; getfavi does not keep a product database of your searches or downloaded zips. Theme preference in the visual picker is stored in the browser (typically localStorage), not as a getfavi account cookie.",
+  },
+  { type: "h", level: 2, text: "Third parties and your choices" },
+  {
+    type: "p",
+    text: "Icon SVG comes from npm packages of Lucide, Tabler, Phosphor, Hugeicons, and Remix Icon; those projects have their own licenses. We do not sell personal information. To ask a privacy question, use GitHub Issues at https://github.com/JoeBuildsStuff/favi-next/issues. If you block the origin, you simply do not use the service; there is no marketing list to unsubscribe from.",
   },
 ]
 
@@ -513,7 +599,7 @@ const topicPages: Record<DeveloperDocSlug, AgentPage> = {
   },
   vercel: {
     status: 200,
-    title: "Vercel developer resources for favi",
+    title: "Vercel developer resources for getfavi (favi)",
     blocks: vercelDocBlocks,
   },
   errors: {
@@ -551,18 +637,38 @@ const pages: Record<string, AgentPage> = {
   },
   "/for-agents": {
     status: 200,
-    title: "favi developer resources",
+    title: "getfavi (favi) developer resources",
     blocks: developerBlocks,
   },
   "/developers": {
     status: 200,
-    title: "favi developer resources",
+    title: "getfavi (favi) developer resources",
     blocks: developerBlocks,
   },
   "/docs": {
     status: 200,
-    title: "favi developer resources",
+    title: "getfavi (favi) developer resources",
     blocks: developerBlocks,
+  },
+  "/vercel": {
+    status: 200,
+    title: "Vercel developer resources for getfavi (favi)",
+    blocks: vercelDocBlocks,
+  },
+  "/about": {
+    status: 200,
+    title: "About getfavi",
+    blocks: aboutBlocks,
+  },
+  "/contact": {
+    status: 200,
+    title: "Contact getfavi",
+    blocks: contactBlocks,
+  },
+  "/privacy": {
+    status: 200,
+    title: "getfavi privacy",
+    blocks: privacyBlocks,
   },
   ...Object.fromEntries(
     DEVELOPER_DOC_SLUGS.map((slug) => [`/docs/${slug}`, topicPages[slug]])
@@ -596,7 +702,7 @@ export type NestedNode =
       children: NestedNode[]
     }
 
-/** Nest heading blocks into <section> trees so the outline is not a flat sibling list. */
+/** Nest heading blocks into a tree by level (H1 → H2 → H3) for outline checks. */
 export function nestBlocks(blocks: ContentBlock[]): NestedNode[] {
   const root: NestedNode[] = []
   const stack: { level: number; children: NestedNode[] }[] = [
@@ -623,32 +729,27 @@ export function nestBlocks(blocks: ContentBlock[]): NestedNode[] {
   return root
 }
 
-function htmlFromNested(nodes: NestedNode[]): string {
-  return nodes
-    .map((node) => {
-      if (node.type === "section") {
-        const inner = htmlFromNested(node.children)
-        return `<section>\n<h${node.heading.level}>${escapeHtml(node.heading.text)}</h${node.heading.level}>\n${inner}\n</section>`
-      }
-      if (node.type === "p") {
-        return `<p>${escapeHtml(node.text)}</p>`
-      }
-      if (node.type === "pre") {
-        return `<pre><code>${escapeHtml(node.text)}</code></pre>`
-      }
-      const items = node.items
-        .map((item) => {
-          const note = item.note ? ` — ${escapeHtml(item.note)}` : ""
-          return `<li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>${note}</li>`
-        })
-        .join("")
-      return `<ul>${items}</ul>`
+function htmlFromBlock(block: ContentBlock): string {
+  if (block.type === "h") {
+    return `<h${block.level}>${escapeHtml(block.text)}</h${block.level}>`
+  }
+  if (block.type === "p") {
+    return `<p>${escapeHtml(block.text)}</p>`
+  }
+  if (block.type === "pre") {
+    return `<pre><code>${escapeHtml(block.text)}</code></pre>`
+  }
+  const items = block.items
+    .map((item) => {
+      const note = item.note ? ` — ${escapeHtml(item.note)}` : ""
+      return `<li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>${note}</li>`
     })
-    .join("\n")
+    .join("")
+  return `<ul>${items}</ul>`
 }
 
 export function blocksToHtml(blocks: ContentBlock[]): string {
-  return `<article>\n${htmlFromNested(nestBlocks(blocks))}\n</article>`
+  return `<article>\n${blocks.map(htmlFromBlock).join("\n")}\n</article>`
 }
 
 export function blocksToMarkdown(blocks: ContentBlock[]): string {
