@@ -1,4 +1,4 @@
-import type { ContentBlock } from "@/lib/agent-pages"
+import { nestBlocks, type ContentBlock, type NestedNode } from "@/lib/agent-pages"
 import { cn } from "@/lib/utils"
 
 function Heading({
@@ -45,7 +45,22 @@ function Block({ block }: { block: ContentBlock }) {
   )
 }
 
-/** Sequential H1/H2/H3 content rendered inside the shared Typeset surface. */
+function NestedBlock({ node }: { node: NestedNode }) {
+  if (node.type !== "section") {
+    return <Block block={node} />
+  }
+
+  return (
+    <section>
+      <Heading level={node.heading.level}>{node.heading.text}</Heading>
+      {node.children.map((child, index) => (
+        <NestedBlock key={index} node={child} />
+      ))}
+    </section>
+  )
+}
+
+/** Semantic H1/H2/H3 sections rendered inside the shared Typeset surface. */
 export function ContentBlocks({
   blocks,
   className,
@@ -55,8 +70,8 @@ export function ContentBlocks({
 }) {
   return (
     <div className={cn("typeset typeset-docs max-w-[42em]", className)}>
-      {blocks.map((block, index) => (
-        <Block key={index} block={block} />
+      {nestBlocks(blocks).map((node, index) => (
+        <NestedBlock key={index} node={node} />
       ))}
     </div>
   )

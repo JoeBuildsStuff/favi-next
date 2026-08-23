@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest"
 
-import { API_CATALOG, API_CATALOG_CONTENT_TYPE } from "@/lib/api-catalog"
+import {
+  API_CATALOG,
+  API_CATALOG_CONTENT_TYPE,
+  API_CATALOG_MARKDOWN,
+} from "@/lib/api-catalog"
 import { OPENAPI_SPEC } from "@/lib/openapi"
 
 describe("OPENAPI_SPEC", () => {
@@ -35,6 +39,15 @@ describe("OPENAPI_SPEC", () => {
         { $ref: "#/components/schemas/Problem" }
       )
     }
+
+    for (const [path, pathItem] of Object.entries(OPENAPI_SPEC.paths)) {
+      for (const [method, operation] of Object.entries(pathItem)) {
+        if (!operation || typeof operation !== "object" || !("operationId" in operation)) {
+          continue
+        }
+        expect(operation.description, `${method.toUpperCase()} ${path}`).toBeTruthy()
+      }
+    }
   })
 })
 
@@ -59,5 +72,11 @@ describe("API_CATALOG", () => {
     expect(entry?.item?.some((link) => link.href.endsWith("/api/v1/export"))).toBe(
       true
     )
+  })
+
+  it("publishes a Markdown cold-discovery twin", () => {
+    expect(API_CATALOG_MARKDOWN).toMatch(/^# favi API catalog/m)
+    expect(API_CATALOG_MARKDOWN).toContain("/openapi.json")
+    expect(API_CATALOG_MARKDOWN).toContain("/api/v1/export")
   })
 })

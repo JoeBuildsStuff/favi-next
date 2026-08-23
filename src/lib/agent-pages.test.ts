@@ -94,6 +94,11 @@ describe("getAgentPage", () => {
     expect(getAgentPage("/index.md").status).toBe(200)
     expect(getAgentPage("/index.md").blocks).toEqual(homepageBlocks)
   })
+
+  it("provides a predictable agent onboarding alias", () => {
+    expect(getAgentPage("/agents").status).toBe(200)
+    expect(getAgentPage("/agents.md").title).toMatch(/agent resources/i)
+  })
 })
 
 describe("not-found recovery list", () => {
