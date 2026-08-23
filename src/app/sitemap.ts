@@ -13,6 +13,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     { url: absoluteUrl("/docs"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    {
+      url: absoluteUrl("/docs/vercel"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    { url: absoluteUrl("/docs/auth"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    {
+      url: absoluteUrl("/docs/webhooks"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    { url: absoluteUrl("/docs/mcp"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    {
+      url: absoluteUrl("/docs/openapi"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/docs/errors"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
     { url: absoluteUrl("/llms.txt"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: absoluteUrl("/openapi.json"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     {

@@ -13,6 +13,17 @@ describe("OPENAPI_SPEC", () => {
     expect(OPENAPI_SPEC.paths).toHaveProperty("/api/icons/{library}/{name}")
     expect(OPENAPI_SPEC.paths).toHaveProperty("/api/export")
     expect(OPENAPI_SPEC.externalDocs?.url).toContain("/docs")
+    expect(OPENAPI_SPEC.components.schemas).toHaveProperty("Problem")
+    const problem = OPENAPI_SPEC.components.schemas.Problem
+    expect(problem.required).toEqual(
+      expect.arrayContaining(["type", "title", "status", "detail", "code", "hint"])
+    )
+    const exportErrors = OPENAPI_SPEC.paths["/api/export"].post.responses
+    for (const status of ["400", "404", "405", "429", "500"] as const) {
+      expect(exportErrors[status].content["application/problem+json"].schema).toEqual(
+        { $ref: "#/components/schemas/Problem" }
+      )
+    }
   })
 })
 
@@ -28,6 +39,9 @@ describe("API_CATALOG", () => {
     expect(entry?.["service-doc"]?.some((link) => link.href.endsWith("/docs"))).toBe(
       true
     )
+    expect(
+      entry?.["service-doc"]?.some((link) => link.href.endsWith("/docs/vercel"))
+    ).toBe(true)
     expect(entry?.item?.some((link) => link.href.endsWith("/api/export"))).toBe(
       true
     )

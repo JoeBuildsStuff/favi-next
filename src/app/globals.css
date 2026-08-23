@@ -161,3 +161,17 @@
   height: 0.875rem;
   border-width: 2px;
 }
+
+/* Homepage: crawlers without JS see nested article HTML; JS users keep the picker. */
+.home-picker {
+  display: none;
+}
+
+html.js .home-picker {
+  display: block;
+  height: 100%;
+}
+
+html.js .home-crawler {
+  display: none;
+}

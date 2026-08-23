@@ -16,7 +16,9 @@ export function AgentDocShell({
         </Link>
       </header>
       <main className="mx-auto max-w-3xl px-6 py-10">
-        <ContentBlocks blocks={blocks} />
+        <article>
+          <ContentBlocks blocks={blocks} />
+        </article>
       </main>
     </div>
   )

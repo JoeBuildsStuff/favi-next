@@ -77,6 +77,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="h-full min-h-full bg-background text-foreground">
         <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: jsonLdScript(),

@@ -1,5 +1,21 @@
 import { SITE, absoluteUrl } from "@/lib/site"
 
+const problemJson = {
+  description: "RFC 9457 problem details",
+  content: {
+    "application/problem+json": {
+      schema: { $ref: "#/components/schemas/Problem" },
+    },
+  },
+} as const
+
+function problemResponse(description: string) {
+  return {
+    description,
+    content: problemJson.content,
+  }
+}
+
 export const OPENAPI_SPEC = {
   openapi: "3.1.0",
   info: {
@@ -27,6 +43,31 @@ export const OPENAPI_SPEC = {
     { name: "export", description: "Favicon package export" },
   ],
   paths: {
+    "/api": {
+      get: {
+        tags: ["health"],
+        operationId: "getApiIndex",
+        summary: "favi HTTP API index",
+        responses: {
+          "200": {
+            description: "Endpoint index",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    name: { type: "string" },
+                    openapi: { type: "string" },
+                    documentation: { type: "string" },
+                    endpoints: { type: "array" },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     "/api/health": {
       get: {
         tags: ["health"],
@@ -48,8 +89,9 @@ export const OPENAPI_SPEC = {
               },
             },
           },
-          "429": { description: "Rate limited" },
-          "503": { description: "Index unavailable" },
+          "405": problemResponse("Method not allowed"),
+          "429": problemResponse("Rate limited"),
+          "503": problemResponse("Index unavailable"),
         },
       },
     },
@@ -76,8 +118,8 @@ export const OPENAPI_SPEC = {
               },
             },
           },
-          "429": { description: "Rate limited" },
-          "503": { description: "Index unavailable" },
+          "429": problemResponse("Rate limited"),
+          "503": problemResponse("Index unavailable"),
         },
       },
     },
@@ -115,8 +157,8 @@ export const OPENAPI_SPEC = {
               },
             },
           },
-          "429": { description: "Rate limited" },
-          "503": { description: "Index unavailable" },
+          "429": problemResponse("Rate limited"),
+          "503": problemResponse("Index unavailable"),
         },
       },
     },
@@ -139,9 +181,9 @@ export const OPENAPI_SPEC = {
               },
             },
           },
-          "404": { description: "Icon not found" },
-          "429": { description: "Rate limited" },
-          "503": { description: "Index unavailable" },
+          "404": problemResponse("Icon not found"),
+          "429": problemResponse("Rate limited"),
+          "503": problemResponse("Index unavailable"),
         },
       },
     },
@@ -167,10 +209,11 @@ export const OPENAPI_SPEC = {
               },
             },
           },
-          "400": { description: "Invalid body" },
-          "404": { description: "Icon not found" },
-          "429": { description: "Rate limited" },
-          "500": { description: "Export failed" },
+          "400": problemResponse("Invalid body"),
+          "404": problemResponse("Icon not found"),
+          "405": problemResponse("Method not allowed"),
+          "429": problemResponse("Rate limited"),
+          "500": problemResponse("Export failed"),
         },
       },
     },
@@ -243,6 +286,43 @@ export const OPENAPI_SPEC = {
           dark_stroke: { type: "string", nullable: true },
           dark_fill: { type: "string", nullable: true },
           site_name: { type: "string" },
+        },
+      },
+      Problem: {
+        type: "object",
+        description:
+          "RFC 9457 application/problem+json error. Machine-readable code plus human-readable detail and hint.",
+        required: ["type", "title", "status", "detail", "instance", "code", "hint"],
+        properties: {
+          type: {
+            type: "string",
+            format: "uri",
+            description: "Canonical error URI on /docs/errors#{code}",
+          },
+          title: { type: "string" },
+          status: { type: "integer" },
+          detail: { type: "string" },
+          instance: { type: "string" },
+          code: {
+            type: "string",
+            enum: [
+              "not_found",
+              "method_not_allowed",
+              "invalid_json",
+              "invalid_shape",
+              "invalid_bg_mode",
+              "invalid_text",
+              "missing_export_source",
+              "icon_not_found",
+              "index_unavailable",
+              "export_failed",
+              "rate_limited",
+            ],
+          },
+          hint: {
+            type: "string",
+            description: "How to recover or which request to send next",
+          },
         },
       },
     },

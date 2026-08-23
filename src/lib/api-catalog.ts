@@ -17,8 +17,12 @@ export const API_CATALOG = {
         { href: absoluteUrl("/openapi.json"), type: "application/json" },
       ],
       "service-doc": [
-        { href: absoluteUrl("/for-agents"), type: "text/html" },
         { href: absoluteUrl("/docs"), type: "text/html" },
+        { href: absoluteUrl("/docs/vercel"), type: "text/html" },
+        { href: absoluteUrl("/docs/auth"), type: "text/html" },
+        { href: absoluteUrl("/docs/webhooks"), type: "text/html" },
+        { href: absoluteUrl("/docs/mcp"), type: "text/html" },
+        { href: absoluteUrl("/for-agents"), type: "text/html" },
         { href: absoluteUrl("/llms.txt"), type: "text/plain" },
         { href: absoluteUrl("/skills/favi/SKILL.md"), type: "text/markdown" },
       ],

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 
+import { POST_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
 import { getIcon } from "@/lib/catalog"
 import { buildFaviconZip } from "@/lib/favicon-export"
 import { normalizeInitials } from "@/lib/favicon-svg"
@@ -14,29 +15,23 @@ export async function POST(request: Request) {
   try {
     body = (await request.json()) as ExportBody
   } catch {
-    return NextResponse.json({ detail: "Invalid JSON" }, { status: 400 })
+    return problemResponse("invalid_json", request)
   }
 
   if (body.shape && !SHAPES.has(body.shape)) {
-    return NextResponse.json({ detail: "Invalid shape" }, { status: 400 })
+    return problemResponse("invalid_shape", request)
   }
   if (body.bg_mode && body.bg_mode !== "solid" && body.bg_mode !== "linear") {
-    return NextResponse.json({ detail: "Invalid bg_mode" }, { status: 400 })
+    return problemResponse("invalid_bg_mode", request)
   }
 
   const initials = normalizeInitials(body.text ?? "")
   const useInitials = Boolean((body.text ?? "").trim())
   if (useInitials && !initials) {
-    return NextResponse.json(
-      { detail: "text must contain 1–2 Latin letters or digits" },
-      { status: 400 }
-    )
+    return problemResponse("invalid_text", request)
   }
   if (!useInitials && (!body.library || !body.name)) {
-    return NextResponse.json(
-      { detail: "Provide library+name, or text for initials" },
-      { status: 400 }
-    )
+    return problemResponse("missing_export_source", request)
   }
 
   try {
@@ -44,7 +39,7 @@ export async function POST(request: Request) {
     if (!useInitials) {
       const icon = getIcon(body.library!, body.name!, body.style ?? "")
       if (!icon) {
-        return NextResponse.json({ detail: "Icon not found" }, { status: 404 })
+        return problemResponse("icon_not_found", request)
       }
       svgRaw = icon.svg
     }
@@ -62,9 +57,16 @@ export async function POST(request: Request) {
       },
     })
   } catch (err) {
-    return NextResponse.json(
-      { detail: err instanceof Error ? err.message : String(err) },
-      { status: 500 }
-    )
+    return problemResponse("export_failed", request, {
+      detail: err instanceof Error ? err.message : String(err),
+    })
   }
 }
+
+export function GET(request: Request) {
+  return methodNotAllowed(request, POST_ONLY)
+}
+
+export const PUT = GET
+export const PATCH = GET
+export const DELETE = GET

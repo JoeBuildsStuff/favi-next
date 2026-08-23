@@ -25,10 +25,15 @@ Production rate limits (per client IP, Vercel WAF). Over limit → **429**; wait
 
 Typical agent flow (search → one lookup → one export) stays well under these caps.
 
-Human UI: https://getfavi.vercel.app  
+Human UI: https://getfavi.vercel.app (canonical getfavi domain)  
 Agent index: https://getfavi.vercel.app/llms.txt  
-favi developer resources: https://getfavi.vercel.app/for-agents  
+favi developer resources: https://getfavi.vercel.app/docs  
+favi Vercel developer resources: https://getfavi.vercel.app/docs/vercel  
+favi authentication: https://getfavi.vercel.app/docs/auth  
+favi webhooks: https://getfavi.vercel.app/docs/webhooks  
+favi MCP server: https://getfavi.vercel.app/docs/mcp  
 OpenAPI: https://getfavi.vercel.app/openapi.json  
+API errors: https://getfavi.vercel.app/docs/errors (RFC 9457 problem+json)  
 Source: https://github.com/JoeBuildsStuff/favi-next
 
 ## Workflow

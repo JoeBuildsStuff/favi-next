@@ -1,18 +1,23 @@
 import { describe, expect, it } from "vitest"
 
 import {
+  blocksToHtml,
   blocksToMarkdown,
   blocksToPlainText,
   getAgentPage,
   homepageBlocks,
   markdownHeaders,
+  nestBlocks,
   notFoundBlocks,
 } from "@/lib/agent-pages"
 
 describe("homepage crawler content", () => {
   it("has an H1 and nested headings that are not trapped in links", () => {
     const headings = homepageBlocks.filter((block) => block.type === "h")
-    expect(headings[0]).toMatchObject({ level: 1, text: "favi" })
+    expect(headings[0]).toMatchObject({
+      level: 1,
+      text: "favi (getfavi) — favicon picker and HTTP API",
+    })
     expect(headings.some((block) => block.type === "h" && block.level === 2)).toBe(
       true
     )
@@ -23,6 +28,19 @@ describe("homepage crawler content", () => {
 
   it("exposes 500+ characters of readable text", () => {
     expect(blocksToPlainText(homepageBlocks).length).toBeGreaterThanOrEqual(500)
+  })
+
+  it("nests H2/H3 inside H1 sections in HTML", () => {
+    const tree = nestBlocks(homepageBlocks)
+    expect(tree).toHaveLength(1)
+    const h1 = tree[0]
+    expect(h1).toMatchObject({ type: "section", heading: { level: 1 } })
+    if (h1?.type !== "section") throw new Error("expected section")
+    expect(h1.children.some((node) => node.type === "section")).toBe(true)
+    const html = blocksToHtml(homepageBlocks)
+    expect(html).toMatch(/<article>[\s\S]*<section>[\s\S]*<h1>/)
+    expect(html).toMatch(/<h1>[\s\S]*<section>[\s\S]*<h2>/)
+    expect(html).toMatch(/<h2>[\s\S]*<section>[\s\S]*<h3>/)
   })
 })
 
@@ -36,6 +54,14 @@ describe("getAgentPage", () => {
     expect(docs.title).toBe("favi developer resources")
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/OpenAPI/)
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/getfavi\.vercel\.app/)
+    expect(getAgentPage("/docs/vercel").title).toBe(
+      "favi Vercel developer resources"
+    )
+    expect(getAgentPage("/docs/auth").title).toBe("favi authentication")
+    expect(getAgentPage("/docs/webhooks").title).toBe("favi webhooks")
+    expect(getAgentPage("/docs/mcp").title).toBe("favi MCP server")
+    expect(getAgentPage("/docs/openapi").title).toBe("favi OpenAPI spec")
+    expect(getAgentPage("/docs/errors").title).toBe("favi API errors")
   })
 
   it("returns a markdown recovery body for unknown paths", () => {

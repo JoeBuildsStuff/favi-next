@@ -11,6 +11,19 @@ export const SITE_JSON_LD = {
       description: SITE.description,
     },
     {
+      "@type": "Organization",
+      name: "getfavi",
+      legalName: "favi",
+      alternateName: [...SITE.alternateNames, "favi"],
+      url: SITE.url,
+      sameAs: [SITE.github],
+      brand: {
+        "@type": "Brand",
+        name: "favi",
+        alternateName: ["getfavi", "getfavi.vercel.app"],
+      },
+    },
+    {
       "@type": "SoftwareApplication",
       name: SITE.name,
       alternateName: [...SITE.alternateNames],
@@ -31,7 +44,7 @@ export const SITE_JSON_LD = {
       url: `${SITE.url}/for-agents`,
       documentation: `${SITE.url}/openapi.json`,
       description:
-        "Public favi HTTP API on Vercel: search icon libraries and export favicon zips. No authentication.",
+        "Public favi HTTP API on Vercel: search icon libraries and export favicon zips. No authentication. Developer resources at /docs and /docs/vercel.",
     },
   ],
 } as const
