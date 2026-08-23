@@ -20,6 +20,7 @@ export const MACHINE_PATHS = [
   "/robots.txt",
   "/openapi.json",
   "/.well-known/api-catalog",
+  "/.well-known/api-catalog.md",
   "/skills/favi/SKILL.md",
   "/for-agents",
 ] as const
@@ -125,6 +126,11 @@ const recoveryLinks: ContentLink[] = [
     note: "Alias of favi developer resources",
   },
   {
+    href: `${SITE_ORIGIN}/agents`,
+    label: "favi agents",
+    note: "Markdown-friendly agent onboarding and API workflow",
+  },
+  {
     href: `${SITE_ORIGIN}/getfavi`,
     label: "getfavi",
     note: "Canonical brand page for getfavi.vercel.app",
@@ -167,7 +173,7 @@ export const homepageBlocks: ContentBlock[] = [
   { type: "h", level: 3, text: "For agents using the HTTP API" },
   {
     type: "p",
-    text: "Agents should ignore the picker and call the public HTTP API. Start at /llms.txt or getfavi developer resources (/docs, /developers, /for-agents). Named Vercel developer resources, OpenAPI spec, auth docs, webhooks, and MCP server pages live at /vercel and /docs/vercel. Trust pages: /about, /contact, /privacy. Brand page: /getfavi.",
+    text: "Agents should ignore the picker and call the public HTTP API. Start at /llms.txt or getfavi developer resources (/docs, /developers, /agents, /for-agents). Named Vercel developer resources, OpenAPI spec, auth docs, webhooks, and MCP server pages live at /vercel and /docs/vercel. Trust pages: /about, /contact, /privacy. Brand page: /getfavi.",
   },
   { type: "h", level: 2, text: "What favi is" },
   { type: "h", level: 3, text: "Icon libraries" },
@@ -190,7 +196,7 @@ export const homepageBlocks: ContentBlock[] = [
   { type: "h", level: 3, text: "HTTP API, OpenAPI, auth, webhooks, and MCP" },
   {
     type: "p",
-    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. Search for getfavi, favi API docs, favi OpenAPI spec, favi auth docs, favi webhooks, favi MCP server, or Vercel developer resources. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs, /developers, /docs/api, /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel, /vercel, /docs/versioning, /docs/rate-limits, /getfavi, /about, /contact, /privacy.",
+    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. Search for getfavi, favi API docs, favi OpenAPI spec, favi auth docs, favi webhooks, favi MCP server, or Vercel developer resources. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs, /developers, /agents, /docs/api, /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel, /vercel, /docs/versioning, /docs/rate-limits, /getfavi, /about, /contact, /privacy.",
   },
   { type: "ul", items: recoveryLinks.slice(1) },
 ]
@@ -289,6 +295,11 @@ export const developerBlocks: ContentBlock[] = [
       {
         href: abs("/docs/rate-limits"),
         label: "favi rate limits",
+      },
+      {
+        href: abs("/agents"),
+        label: "favi agents",
+        note: "Markdown-friendly agent onboarding",
       },
       {
         href: abs("/developers"),
@@ -643,6 +654,11 @@ const pages: Record<string, AgentPage> = {
   "/developers": {
     status: 200,
     title: "getfavi (favi) developer resources",
+    blocks: developerBlocks,
+  },
+  "/agents": {
+    status: 200,
+    title: "getfavi (favi) agent resources",
     blocks: developerBlocks,
   },
   "/docs": {

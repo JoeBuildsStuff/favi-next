@@ -38,6 +38,7 @@ npx skills add JoeBuildsStuff/favi-next --skill favi
 - [getfavi (favi) developer resources](https://getfavi.vercel.app/docs): API docs, authentication, OpenAPI spec, auth docs, webhooks, MCP server notes (Vercel-hosted origin)
 - [favi developers](https://getfavi.vercel.app/developers): Same getfavi developer resources index
 - [favi developer resources (for-agents)](https://getfavi.vercel.app/for-agents): Same getfavi developer resources index
+- [favi agents](https://getfavi.vercel.app/agents): Markdown-friendly agent onboarding and API workflow
 - [favi API docs](https://getfavi.vercel.app/docs/api): HTTP API reference
 - [Vercel developer resources](https://getfavi.vercel.app/vercel): getfavi API docs, OpenAPI spec, auth docs, webhooks, MCP server on Vercel
 - [Vercel developer resources for getfavi](https://getfavi.vercel.app/docs/vercel): Same Vercel developer resources index
@@ -50,6 +51,7 @@ npx skills add JoeBuildsStuff/favi-next --skill favi
 - [favi rate limits](https://getfavi.vercel.app/docs/rate-limits): RateLimit headers and 429 Retry-After
 - [favi API errors](https://getfavi.vercel.app/docs/errors): RFC 9457 problem+json codes and hints
 - [favi API catalog](https://getfavi.vercel.app/.well-known/api-catalog): RFC 9727 linkset
+- [favi API catalog (Markdown)](https://getfavi.vercel.app/.well-known/api-catalog.md): Human- and agent-readable API catalog
 - [favi HTTP API index](https://getfavi.vercel.app/api/v1): JSON list of endpoints
 - [getfavi](https://getfavi.vercel.app/getfavi): Brand page for getfavi.vercel.app
 - [About getfavi](https://getfavi.vercel.app/about): Product and maintainer

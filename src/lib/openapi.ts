@@ -81,6 +81,8 @@ const healthGet = {
   tags: ["health"],
   operationId: "getHealth",
   summary: "Health and indexed icon count",
+  description:
+    "Check that the favi service is available and read the number of icons currently indexed across the supported free icon libraries.",
   parameters: [apiVersionParam],
   responses: {
     "200": jsonResponse("Service is up", {
@@ -101,6 +103,8 @@ const librariesGet = {
   tags: ["icons"],
   operationId: "listLibraries",
   summary: "List icon packs, licenses, and styles",
+  description:
+    "List the icon libraries available to favi, including their slugs, licenses, attribution notes, styles, and indexed icon counts.",
   parameters: [apiVersionParam],
   responses: {
     "200": jsonResponse("Library list", {
@@ -122,6 +126,8 @@ const iconsGet = {
   tags: ["icons"],
   operationId: "searchIcons",
   summary: "Search icons",
+  description:
+    "Search the indexed icon catalog by text and optionally filter by library or style. The q parameter expands curated synonyms such as photo to image and trash to delete.",
   parameters: [
     apiVersionParam,
     {
@@ -156,6 +162,8 @@ const iconGet = {
   tags: ["icons"],
   operationId: "getIcon",
   summary: "Exact icon lookup",
+  description:
+    "Fetch one exact icon by its library slug and name, optionally selecting a style. The response includes the raw SVG and attribution metadata.",
   parameters: [
     apiVersionParam,
     { name: "library", in: "path" as const, required: true, schema: { type: "string" } },
@@ -176,6 +184,8 @@ const exportPost = {
   tags: ["export"],
   operationId: "exportFavicon",
   summary: "Export a favicon zip",
+  description:
+    "Create a downloadable favicon package from an indexed icon or one to two initials. The zip contains SVG, ICO, apple-touch, Android, and PWA assets, with optional dark-mode variants.",
   parameters: [apiVersionParam],
   requestBody: {
     required: true,
@@ -207,6 +217,8 @@ const indexGet = {
   tags: ["health"],
   operationId: "getApiIndex",
   summary: "favi HTTP API index",
+  description:
+    "Return the machine-readable entry point for the public favi API, including its canonical version, documentation URLs, error media type, and endpoint list.",
   parameters: [apiVersionParam],
   responses: {
     "200": jsonResponse("Endpoint index", {

@@ -8,7 +8,11 @@ import { homepageBlocks } from "@/lib/agent-pages"
  */
 export function HomeCrawlerContent() {
   return (
-    <main className="home-crawler mx-auto max-w-3xl px-6 py-10">
+    <main
+      className="home-crawler mx-auto max-w-3xl px-6 py-10"
+      data-agent-summary="true"
+      aria-label="getfavi product overview"
+    >
       <article>
         <ContentBlocks blocks={homepageBlocks} />
       </article>

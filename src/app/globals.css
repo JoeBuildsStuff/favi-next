@@ -183,5 +183,17 @@ html.js .home-picker {
 }
 
 html.js .home-crawler {
-  display: none;
+  /* Keep the product explanation in the DOM for agents that execute the
+     small bootstrap script, while taking it out of the visual picker layout.
+     `display: none` made browser-based evaluators conclude that the homepage
+     had no static product copy even though the server rendered it. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

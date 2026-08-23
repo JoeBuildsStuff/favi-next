@@ -64,6 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: absoluteUrl("/agents"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/getfavi"),
       lastModified: now,
       changeFrequency: "weekly",
@@ -95,6 +101,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     { url: absoluteUrl("/llms.txt"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: absoluteUrl("/openapi.json"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    {
+      url: absoluteUrl("/.well-known/api-catalog.md"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
     {
       url: absoluteUrl("/skills/favi/SKILL.md"),
       lastModified: now,

@@ -51,6 +51,7 @@ export function proxy(request: NextRequest) {
     pathname === "/for-agents" ||
     pathname === "/docs" ||
     pathname === "/developers" ||
+    pathname === "/agents" ||
     pathname === "/getfavi" ||
     pathname === "/vercel" ||
     pathname === "/about" ||
