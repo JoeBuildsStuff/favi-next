@@ -3,9 +3,8 @@ import { homepageBlocks } from "@/lib/agent-pages"
 
 /**
  * Server-rendered main/article for no-JS crawlers. Hidden after `html.js` so the
- * visual picker stays the same for browser users. Headings are direct children
- * of article so the document outline is H1 → H2 → H3, not a flat sibling list
- * trapped in generic wrappers.
+ * visual picker stays the same for browser users. ContentBlocks preserves the
+ * sequential H1 → H2 → H3 document outline inside its Typeset surface.
  */
 export function HomeCrawlerContent() {
   return (
