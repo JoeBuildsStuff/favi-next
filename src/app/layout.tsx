@@ -6,24 +6,24 @@ import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { jsonLdScript } from "@/lib/json-ld"
-import { SITE_DESCRIPTION, SITE_NAME, SITE_ORIGIN, SITE_TAGLINE } from "@/lib/site"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_OG_IMAGE, SITE_ORIGIN, SITE_TAGLINE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const geist = Geist({
   subsets: ["latin"],
+  variable: "--font-geist",
 })
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  variable: "--font-geist-mono",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    template: `%s | ${SITE_NAME}`,
+    default: `getfavi (favi) — ${SITE_TAGLINE}`,
+    template: `%s | getfavi`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     "favicon",
     "favicon API",
     "favi developer resources",
+    "Vercel developer resources",
     "Lucide",
     "Tabler",
     "Phosphor",
@@ -49,15 +50,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: SITE_NAME,
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    siteName: "getfavi",
+    title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     url: SITE_ORIGIN,
+    images: [SITE_OG_IMAGE],
   },
   twitter: {
-    card: "summary",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    card: "summary_large_image",
+    title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE.url],
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
@@ -71,11 +74,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={cn(
         "h-full antialiased font-sans",
-        geistSans.variable,
+        geist.variable,
         geistMono.variable
       )}
     >
       <body className="h-full min-h-full bg-background text-foreground">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

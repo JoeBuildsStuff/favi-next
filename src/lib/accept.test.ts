@@ -60,6 +60,17 @@ describe("negotiate", () => {
     ).toBe("skip")
   })
 
+  it("skips generated Open Graph image routes", () => {
+    expect(
+      negotiate({
+        method: "GET",
+        pathname: "/opengraph-image",
+        accept: "text/markdown",
+        isRsc: false,
+      })
+    ).toBe("skip")
+  })
+
   it("forces markdown for .md siblings", () => {
     expect(
       negotiate({

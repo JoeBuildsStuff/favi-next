@@ -1,11 +1,17 @@
 import { ContentBlocks } from "@/components/content-blocks"
 import { homepageBlocks } from "@/lib/agent-pages"
 
-/** Server-rendered outline so crawlers see an H1 and 500+ chars without JS. */
+/**
+ * Server-rendered main/article for no-JS crawlers. Hidden after `html.js` so the
+ * visual picker stays the same for browser users. ContentBlocks preserves the
+ * sequential H1 → H2 → H3 document outline inside its Typeset surface.
+ */
 export function HomeCrawlerContent() {
   return (
-    <section className="sr-only" aria-label="About favi">
-      <ContentBlocks blocks={homepageBlocks} />
-    </section>
+    <main className="home-crawler mx-auto max-w-3xl px-6 py-10">
+      <article>
+        <ContentBlocks blocks={homepageBlocks} />
+      </article>
+    </main>
   )
 }

@@ -12,11 +12,13 @@ export function AgentDocShell({
     <div className="bg-background text-foreground min-h-full">
       <header className="border-border border-b px-6 py-4">
         <Link href="/" className="text-sm font-semibold">
-          favi
+          getfavi
         </Link>
       </header>
       <main className="mx-auto max-w-3xl px-6 py-10">
-        <ContentBlocks blocks={blocks} />
+        <article>
+          <ContentBlocks blocks={blocks} />
+        </article>
       </main>
     </div>
   )

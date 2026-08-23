@@ -6,9 +6,11 @@ export default function Home() {
   return (
     <>
       <HomeCrawlerContent />
-      <FaviconSelectionProvider>
-        <PreviewPage />
-      </FaviconSelectionProvider>
+      <div className="home-picker">
+        <FaviconSelectionProvider>
+          <PreviewPage />
+        </FaviconSelectionProvider>
+      </div>
     </>
   )
 }

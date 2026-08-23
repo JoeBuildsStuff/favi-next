@@ -5,15 +5,37 @@ export const SITE_JSON_LD = {
   "@graph": [
     {
       "@type": "WebSite",
-      name: SITE.name,
-      alternateName: [...SITE.alternateNames],
+      name: "getfavi",
+      alternateName: ["favi", ...SITE.alternateNames],
       url: SITE.url,
       description: SITE.description,
+      identifier: "getfavi",
+    },
+    {
+      "@type": "Organization",
+      name: "getfavi",
+      legalName: "favi",
+      alternateName: [...SITE.alternateNames, "favi"],
+      url: SITE.url,
+      sameAs: [SITE.github, SITE.url],
+      identifier: "getfavi",
+      logo: `${SITE.url}/opengraph-image`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: SITE.contact,
+      },
+      brand: {
+        "@type": "Brand",
+        name: "getfavi",
+        alternateName: ["favi", "getfavi.vercel.app"],
+        url: SITE.url,
+      },
     },
     {
       "@type": "SoftwareApplication",
-      name: SITE.name,
-      alternateName: [...SITE.alternateNames],
+      name: "getfavi",
+      alternateName: ["favi", ...SITE.alternateNames],
       url: SITE.url,
       description: SITE.description,
       applicationCategory: "DeveloperApplication",
@@ -28,10 +50,10 @@ export const SITE_JSON_LD = {
     {
       "@type": "WebAPI",
       name: "favi HTTP API",
-      url: `${SITE.url}/for-agents`,
+      url: `${SITE.url}/api/v1`,
       documentation: `${SITE.url}/openapi.json`,
       description:
-        "Public favi HTTP API on Vercel: search icon libraries and export favicon zips. No authentication.",
+        "Public getfavi (favi) HTTP API on Vercel: search icon libraries and export favicon zips. Versioned at /api/v1/. No authentication. Vercel developer resources at /vercel and /docs/vercel. OpenAPI spec, auth docs, webhooks, and MCP notes are listed from /docs.",
     },
   ],
 } as const

@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./typeset.css";
+
+.typeset-docs {
+  --typeset-font-body: var(--font-geist);
+  --typeset-font-heading: var(--font-geist);
+  --typeset-font-mono: var(--font-geist-mono);
+  --typeset-size: 15px;
+  --typeset-leading: 1.6;
+  --typeset-flow: 1em;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -160,4 +170,18 @@
   width: 0.875rem;
   height: 0.875rem;
   border-width: 2px;
+}
+
+/* Homepage: crawlers without JS see nested article HTML; JS users keep the picker. */
+.home-picker {
+  display: none;
+}
+
+html.js .home-picker {
+  display: block;
+  height: 100%;
+}
+
+html.js .home-crawler {
+  display: none;
 }

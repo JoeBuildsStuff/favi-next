@@ -123,6 +123,8 @@ const SKIP_EXACT = new Set([
   "/favicon.svg",
   "/favicon.ico",
   "/apple-touch-icon.png",
+  "/opengraph-image",
+  "/opengraph-image.png",
 ])
 
 const SKIP_EXTENSIONS = [

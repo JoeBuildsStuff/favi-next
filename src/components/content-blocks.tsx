@@ -1,4 +1,5 @@
 import type { ContentBlock } from "@/lib/agent-pages"
+import { cn } from "@/lib/utils"
 
 function Heading({
   level,
@@ -8,16 +9,43 @@ function Heading({
   children: string
 }) {
   if (level === 1) {
-    return <h1 className="text-3xl font-semibold tracking-tight">{children}</h1>
+    return <h1>{children}</h1>
   }
   if (level === 2) {
-    return (
-      <h2 className="mt-8 text-xl font-semibold tracking-tight">{children}</h2>
-    )
+    return <h2>{children}</h2>
   }
-  return <h3 className="mt-6 text-lg font-semibold tracking-tight">{children}</h3>
+  return <h3>{children}</h3>
 }
 
+function Block({ block }: { block: ContentBlock }) {
+  if (block.type === "h") {
+    return <Heading level={block.level}>{block.text}</Heading>
+  }
+  if (block.type === "p") {
+    return <p>{block.text}</p>
+  }
+  if (block.type === "pre") {
+    return (
+      <pre>
+        <code>{block.text}</code>
+      </pre>
+    )
+  }
+  return (
+    <ul>
+      {block.items.map((item) => (
+        <li key={item.href}>
+          <a href={item.href}>{item.label}</a>
+          {item.note ? (
+            <span className="text-muted-foreground"> — {item.note}</span>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Sequential H1/H2/H3 content rendered inside the shared Typeset surface. */
 export function ContentBlocks({
   blocks,
   className,
@@ -26,47 +54,10 @@ export function ContentBlocks({
   className?: string
 }) {
   return (
-    <div className={className}>
-      {blocks.map((block, index) => {
-        if (block.type === "h") {
-          return (
-            <Heading key={index} level={block.level}>
-              {block.text}
-            </Heading>
-          )
-        }
-        if (block.type === "p") {
-          return (
-            <p key={index} className="text-muted-foreground mt-3 text-sm leading-6">
-              {block.text}
-            </p>
-          )
-        }
-        if (block.type === "pre") {
-          return (
-            <pre
-              key={index}
-              className="bg-muted mt-3 overflow-x-auto rounded-md p-3 text-xs leading-5"
-            >
-              <code>{block.text}</code>
-            </pre>
-          )
-        }
-        return (
-          <ul key={index} className="mt-3 list-disc space-y-2 pl-5 text-sm">
-            {block.items.map((item) => (
-              <li key={item.href}>
-                <a className="underline underline-offset-4" href={item.href}>
-                  {item.label}
-                </a>
-                {item.note ? (
-                  <span className="text-muted-foreground"> — {item.note}</span>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        )
-      })}
+    <div className={cn("typeset typeset-docs max-w-[42em]", className)}>
+      {blocks.map((block, index) => (
+        <Block key={index} block={block} />
+      ))}
     </div>
   )
 }
