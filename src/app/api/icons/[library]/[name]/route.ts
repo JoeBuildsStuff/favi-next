@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server"
-
 import { GET_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
+import { apiJson } from "@/lib/api-response"
 import { getIcon } from "@/lib/catalog"
 
 export const runtime = "nodejs"
@@ -16,7 +15,7 @@ export async function GET(
     if (!icon) {
       return problemResponse("icon_not_found", request)
     }
-    return NextResponse.json(icon)
+    return apiJson(request, icon)
   } catch (err) {
     return problemResponse("index_unavailable", request, {
       detail: err instanceof Error ? err.message : String(err),

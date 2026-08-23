@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server"
-
 import { POST_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
+import { apiBody } from "@/lib/api-response"
 import { getIcon } from "@/lib/catalog"
 import { buildFaviconZip } from "@/lib/favicon-export"
 import { normalizeInitials } from "@/lib/favicon-svg"
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
       body,
     })
 
-    return new NextResponse(new Uint8Array(zip), {
+    return apiBody(request, new Uint8Array(zip), {
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition": `attachment; filename="${filename}"`,

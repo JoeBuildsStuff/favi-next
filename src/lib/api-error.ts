@@ -1,3 +1,4 @@
+import { applyApiHeaders } from "@/lib/rate-limit"
 import { absoluteUrl } from "@/lib/site"
 
 /** RFC 9457 */
@@ -136,6 +137,7 @@ export function problemResponse(
   const body = problemDocument(code, instance, extra)
   const headers = new Headers(extra?.headers)
   headers.set("Content-Type", PROBLEM_JSON)
+  applyApiHeaders(headers, request, body.status)
   return new Response(JSON.stringify(body), {
     status: body.status,
     headers,

@@ -30,4 +30,14 @@ describe("RFC 9457 problem responses", () => {
     expect(body.instance).toBe("/api/export")
     expect(body.hint).toMatch(/openapi/i)
   })
+
+  it("adds Retry-After on rate_limited", () => {
+    const response = problemResponse(
+      "rate_limited",
+      new Request("http://127.0.0.1:3000/api/v1/export", { method: "POST" })
+    )
+    expect(response.status).toBe(429)
+    expect(response.headers.get("Retry-After")).toBe("60")
+    expect(response.headers.get("RateLimit-Limit")).toBe("20")
+  })
 })

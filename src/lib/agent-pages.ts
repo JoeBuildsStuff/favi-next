@@ -104,10 +104,35 @@ const recoveryLinks: ContentLink[] = [
     label: "favi API errors",
     note: "RFC 9457 problem+json codes",
   },
+  {
+    href: `${SITE_ORIGIN}/docs/api`,
+    label: "favi API docs",
+    note: "HTTP API reference",
+  },
+  {
+    href: `${SITE_ORIGIN}/docs/versioning`,
+    label: "favi REST versioning",
+    note: "/api/v1/ and deprecation policy",
+  },
+  {
+    href: `${SITE_ORIGIN}/docs/rate-limits`,
+    label: "favi rate limits",
+    note: "RateLimit headers and 429 Retry-After",
+  },
+  {
+    href: `${SITE_ORIGIN}/developers`,
+    label: "favi developers",
+    note: "Alias of favi developer resources",
+  },
+  {
+    href: `${SITE_ORIGIN}/getfavi`,
+    label: "getfavi",
+    note: "Canonical brand page for getfavi.vercel.app",
+  },
 ]
 
 export const homepageBlocks: ContentBlock[] = [
-  { type: "h", level: 1, text: "favi (getfavi) — favicon picker and HTTP API" },
+  { type: "h", level: 1, text: "getfavi (favi) — favicon picker and HTTP API" },
   { type: "p", text: SITE_DESCRIPTION },
   {
     type: "p",
@@ -128,13 +153,13 @@ export const homepageBlocks: ContentBlock[] = [
   { type: "h", level: 3, text: "Search then export" },
   {
     type: "p",
-    text: "Prefer curl or fetch against the public HTTP API. Do not drive the browser UI unless the user asks for visual QA. Typical flow: GET /api/libraries, GET /api/icons?q=…, GET /api/icons/:library/:name, then one POST /api/export. Production at getfavi.vercel.app is rate-limited by client IP at the Vercel WAF (429 means wait and retry; do not poll). Local http://127.0.0.1:3000 is not limited. JSON errors use RFC 9457 application/problem+json with code, message (detail), and hint.",
+    text: "Prefer curl or fetch against the public HTTP API. Do not drive the browser UI unless the user asks for visual QA. Canonical paths are /api/v1/… (unversioned /api/… is a stable alias). Typical flow: GET /api/v1/libraries, GET /api/v1/icons?q=…, GET /api/v1/icons/:library/:name, then one POST /api/v1/export. Production at getfavi.vercel.app is rate-limited by client IP at the Vercel WAF. Responses include RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, and Retry-After on 429. Local http://127.0.0.1:3000 is not limited. JSON errors use RFC 9457 application/problem+json with code, message (detail), and hint.",
   },
   { type: "h", level: 2, text: "favi developer resources on Vercel" },
   { type: "h", level: 3, text: "HTTP API, OpenAPI, auth, webhooks, and MCP" },
   {
     type: "p",
-    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs (index), /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel.",
+    text: "favi developer resources for the Vercel-hosted favicon HTTP API live at predictable URLs. Search for getfavi, favi API docs, favi OpenAPI spec, favi auth docs, favi webhooks, favi MCP server, or Vercel developer resources. There is no authentication, no webhooks, and no MCP server — use the HTTP API and the favi skill. Named docs: /docs, /developers, /docs/api, /docs/auth, /docs/webhooks, /docs/mcp, /docs/openapi, /docs/errors, /docs/vercel, /docs/versioning, /docs/rate-limits, /getfavi.",
   },
   { type: "ul", items: recoveryLinks.slice(1) },
 ]
@@ -222,46 +247,66 @@ export const developerBlocks: ContentBlock[] = [
         href: abs("/docs/errors"),
         label: "favi API errors",
       },
+      {
+        href: abs("/docs/api"),
+        label: "favi API docs",
+      },
+      {
+        href: abs("/docs/versioning"),
+        label: "favi REST versioning",
+      },
+      {
+        href: abs("/docs/rate-limits"),
+        label: "favi rate limits",
+      },
+      {
+        href: abs("/developers"),
+        label: "favi developers",
+      },
+      {
+        href: abs("/getfavi"),
+        label: "getfavi",
+      },
     ],
   },
   { type: "h", level: 2, text: "HTTP API" },
   { type: "h", level: 3, text: "Health" },
-  { type: "p", text: "GET /api/health → { status, icons } with the indexed icon count." },
-  { type: "pre", text: `curl -sS ${SITE_ORIGIN}/api/health` },
+  { type: "p", text: "GET /api/v1/health (alias GET /api/health) → { status, icons } with the indexed icon count." },
+  { type: "pre", text: `curl -sS ${SITE_ORIGIN}/api/v1/health` },
   { type: "h", level: 3, text: "Libraries" },
   {
     type: "p",
-    text: "GET /api/libraries lists packs (lucide, tabler, phosphor, hugeicons, remix), licenses, styles, and counts.",
+    text: "GET /api/v1/libraries lists packs (lucide, tabler, phosphor, hugeicons, remix), licenses, styles, and counts.",
   },
-  { type: "pre", text: `curl -sS ${SITE_ORIGIN}/api/libraries` },
+  { type: "pre", text: `curl -sS ${SITE_ORIGIN}/api/v1/libraries` },
   { type: "h", level: 3, text: "Search icons" },
   {
     type: "p",
-    text: "GET /api/icons?q=&library=&style=&limit=&offset=. q expands curated synonyms. Each hit includes library, name, style, and svg.",
+    text: "GET /api/v1/icons?q=&library=&style=&limit=&offset=. q expands curated synonyms. Each hit includes library, name, style, and svg.",
   },
   {
     type: "pre",
-    text: `curl -sS "${SITE_ORIGIN}/api/icons?q=image&library=lucide&style=outline&limit=12"`,
+    text: `curl -sS "${SITE_ORIGIN}/api/v1/icons?q=image&library=lucide&style=outline&limit=12"`,
   },
   { type: "h", level: 3, text: "Exact icon" },
-  { type: "p", text: "GET /api/icons/:library/:name?style= returns one icon or 404." },
+  { type: "p", text: "GET /api/v1/icons/:library/:name?style= returns one icon or 404." },
   {
     type: "pre",
-    text: `curl -sS "${SITE_ORIGIN}/api/icons/lucide/image?style=outline"`,
+    text: `curl -sS "${SITE_ORIGIN}/api/v1/icons/lucide/image?style=outline"`,
   },
   { type: "h", level: 3, text: "Export favicon zip" },
   {
     type: "p",
-    text: "POST /api/export with JSON {library,name,style} or {text} plus optional bg, bg_mode, bg_to, bg_angle, fill, stroke, padding, stroke_scale, shape, include_dark_mode, dark_*, site_name. Response is application/zip.",
+    text: "POST /api/v1/export with JSON {library,name,style} or {text} plus optional bg, bg_mode, bg_to, bg_angle, fill, stroke, padding, stroke_scale, shape, include_dark_mode, dark_*, site_name. Response is application/zip.",
   },
   {
     type: "pre",
-    text: `curl -sS -X POST ${SITE_ORIGIN}/api/export \\\n  -H 'Content-Type: application/json' \\\n  -d '{"library":"lucide","name":"image","style":"outline","bg":"#075985","stroke":"#ffffff"}' \\\n  -o favicon.zip`,
+    text: `curl -sS -X POST ${SITE_ORIGIN}/api/v1/export \\\n  -H 'Content-Type: application/json' \\\n  -d '{"library":"lucide","name":"image","style":"outline","bg":"#075985","stroke":"#ffffff"}' \\\n  -o favicon.zip`,
   },
   { type: "h", level: 2, text: "Rate limits" },
   {
     type: "p",
-    text: "Production only. POST /api/export: 20 / 60s / IP. GET /api/icons and /api/icons/:library/:name: 120 / 60s / IP. GET /api/health and /api/libraries: 40 / 60s / IP. Search, look up, then export once.",
+    text: "Production only. POST /api/v1/export: 20 / 60s / IP. GET /api/v1/icons: 120 / 60s / IP. GET /api/v1/health and /api/v1/libraries: 40 / 60s / IP. Responses include RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, RateLimit, RateLimit-Policy, and Retry-After on 429. See /docs/rate-limits.",
   },
   { type: "h", level: 2, text: "Webhooks and MCP" },
   {
@@ -271,7 +316,7 @@ export const developerBlocks: ContentBlock[] = [
 ]
 
 export const authBlocks: ContentBlock[] = [
-  { type: "h", level: 1, text: "favi authentication" },
+  { type: "h", level: 1, text: "favi authentication (auth docs)" },
   {
     type: "p",
     text: "favi authentication docs for the public favicon HTTP API at getfavi.vercel.app. The API is open: no API keys, OAuth, cookies, sessions, or login. Do not send an Authorization header.",
@@ -327,10 +372,10 @@ export const openApiDocBlocks: ContentBlock[] = [
 ]
 
 export const vercelDocBlocks: ContentBlock[] = [
-  { type: "h", level: 1, text: "favi Vercel developer resources" },
+  { type: "h", level: 1, text: "Vercel developer resources for favi (getfavi)" },
   {
     type: "p",
-    text: "This page is the favi developer resources index for the Vercel-hosted origin getfavi.vercel.app. Use it when searching for “favi Vercel”, “Vercel developer resources” for this product, or the public favicon HTTP API deployed on Vercel.",
+    text: "This page is the Vercel developer resources index for favi, the favicon HTTP API hosted on Vercel at getfavi.vercel.app. Use it when searching for “Vercel developer resources”, “favi Vercel”, OpenAPI spec, auth docs, webhooks, or MCP server for this product.",
   },
   { type: "h", level: 2, text: "Vercel-hosted API" },
   {
@@ -347,6 +392,10 @@ export const vercelDocBlocks: ContentBlock[] = [
       { href: abs("/docs/mcp"), label: "favi MCP server" },
       { href: abs("/docs/openapi"), label: "favi OpenAPI spec" },
       { href: abs("/docs/errors"), label: "favi API errors" },
+      { href: abs("/docs/api"), label: "favi API docs" },
+      { href: abs("/docs/versioning"), label: "favi REST versioning" },
+      { href: abs("/docs/rate-limits"), label: "favi rate limits" },
+      { href: abs("/developers"), label: "favi developers" },
       { href: abs("/for-agents"), label: "favi for agents" },
     ],
   },
@@ -370,6 +419,63 @@ export const errorDocBlocks: ContentBlock[] = [
   },
 ]
 
+export const versioningDocBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "favi REST versioning" },
+  {
+    type: "p",
+    text: "favi versions the HTTP API in the URL path. The current version is 1 at /api/v1/. Unversioned /api/* paths are stable aliases of /api/v1/* and are not deprecated. Agents should prefer /api/v1/ in new integrations. An optional API-Version: 1 request header is documented in the OpenAPI spec; the path is authoritative.",
+  },
+  { type: "h", level: 2, text: "Deprecation policy" },
+  {
+    type: "p",
+    text: "Breaking changes ship as /api/v2/ (and later). When a version is retired, every response for that version includes Deprecation: true and Sunset: <HTTP-date> (RFC 8594) for at least 90 days before the path is removed. v1 currently sends neither header. See /openapi.json and GET /api/v1.",
+  },
+]
+
+export const rateLimitDocBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "favi rate limits" },
+  {
+    type: "p",
+    text: "Production getfavi.vercel.app rate-limits by client IP at the Vercel WAF. Every favi HTTP API response includes RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, RateLimit, RateLimit-Policy, and API-Version. HTTP 429 also includes Retry-After (seconds). Local http://127.0.0.1:3000 is not limited but still advertises the production policy in those headers.",
+  },
+  { type: "h", level: 2, text: "Quotas" },
+  {
+    type: "p",
+    text: "POST /api/v1/export: 20 requests / 60 seconds / IP. GET /api/v1/icons and GET /api/v1/icons/{library}/{name}: 120 / 60s / IP. GET /api/v1/health, GET /api/v1/libraries, and GET /api/v1: 40 / 60s / IP. Remaining is advertised as the window limit from this app; the WAF may still return 429. Wait Retry-After seconds; do not poll.",
+  },
+]
+
+export const apiDocBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "favi API docs" },
+  {
+    type: "p",
+    text: "favi API docs for the public favicon HTTP API at getfavi.vercel.app. Canonical versioned paths: GET /api/v1/health, GET /api/v1/libraries, GET /api/v1/icons, GET /api/v1/icons/{library}/{name}, POST /api/v1/export. Machine-readable: /openapi.json. Auth docs: /docs/auth. Webhooks: /docs/webhooks. MCP server: /docs/mcp. Vercel developer resources: /docs/vercel.",
+  },
+  { type: "h", level: 2, text: "Full developer resources" },
+  {
+    type: "p",
+    text: "The complete favi developer resources index (examples, rate limits, skill install) is /docs and /for-agents.",
+  },
+]
+
+export const getfaviBlocks: ContentBlock[] = [
+  { type: "h", level: 1, text: "getfavi" },
+  {
+    type: "p",
+    text: "getfavi is the brand name of favi, a public favicon picker and HTTP API. The canonical domain is https://getfavi.vercel.app (hosted on Vercel). Search for getfavi or favi favicon API to reach this origin. The GitHub repository is https://github.com/JoeBuildsStuff/favi-next.",
+  },
+  { type: "h", level: 2, text: "Product" },
+  {
+    type: "p",
+    text: "getfavi indexes Lucide, Tabler, Phosphor, Hugeicons (free), and Remix Icon. Agents search icons and export a favicon zip over HTTP with no authentication. Developer resources: /docs. Visual picker: /.",
+  },
+  { type: "h", level: 2, text: "Name, origin, and listings" },
+  {
+    type: "p",
+    text: "Name: getfavi (also favi). URL: https://getfavi.vercel.app. Public source: https://github.com/JoeBuildsStuff/favi-next. There is no separate telephone listing; contact is the GitHub repository. This page exists so a search for getfavi returns getfavi.vercel.app.",
+  },
+]
+
 export const DEVELOPER_DOC_SLUGS = [
   "auth",
   "webhooks",
@@ -377,6 +483,9 @@ export const DEVELOPER_DOC_SLUGS = [
   "openapi",
   "vercel",
   "errors",
+  "api",
+  "versioning",
+  "rate-limits",
 ] as const
 
 export type DeveloperDocSlug = (typeof DEVELOPER_DOC_SLUGS)[number]
@@ -384,7 +493,7 @@ export type DeveloperDocSlug = (typeof DEVELOPER_DOC_SLUGS)[number]
 const topicPages: Record<DeveloperDocSlug, AgentPage> = {
   auth: {
     status: 200,
-    title: "favi authentication",
+    title: "favi authentication (auth docs)",
     blocks: authBlocks,
   },
   webhooks: {
@@ -404,7 +513,7 @@ const topicPages: Record<DeveloperDocSlug, AgentPage> = {
   },
   vercel: {
     status: 200,
-    title: "favi Vercel developer resources",
+    title: "Vercel developer resources for favi",
     blocks: vercelDocBlocks,
   },
   errors: {
@@ -412,15 +521,40 @@ const topicPages: Record<DeveloperDocSlug, AgentPage> = {
     title: "favi API errors",
     blocks: errorDocBlocks,
   },
+  api: {
+    status: 200,
+    title: "favi API docs",
+    blocks: apiDocBlocks,
+  },
+  versioning: {
+    status: 200,
+    title: "favi REST versioning",
+    blocks: versioningDocBlocks,
+  },
+  "rate-limits": {
+    status: 200,
+    title: "favi rate limits",
+    blocks: rateLimitDocBlocks,
+  },
 }
 
 const pages: Record<string, AgentPage> = {
   "/": {
     status: 200,
-    title: `${SITE_NAME} — favicon picker and HTTP API`,
+    title: "getfavi (favi) — favicon picker and HTTP API",
     blocks: homepageBlocks,
   },
+  "/getfavi": {
+    status: 200,
+    title: "getfavi",
+    blocks: getfaviBlocks,
+  },
   "/for-agents": {
+    status: 200,
+    title: "favi developer resources",
+    blocks: developerBlocks,
+  },
+  "/developers": {
     status: 200,
     title: "favi developer resources",
     blocks: developerBlocks,

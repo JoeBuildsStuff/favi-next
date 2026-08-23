@@ -16,7 +16,7 @@ describe("homepage crawler content", () => {
     const headings = homepageBlocks.filter((block) => block.type === "h")
     expect(headings[0]).toMatchObject({
       level: 1,
-      text: "favi (getfavi) — favicon picker and HTTP API",
+      text: "getfavi (favi) — favicon picker and HTTP API",
     })
     expect(headings.some((block) => block.type === "h" && block.level === 2)).toBe(
       true
@@ -54,14 +54,21 @@ describe("getAgentPage", () => {
     expect(docs.title).toBe("favi developer resources")
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/OpenAPI/)
     expect(blocksToPlainText(forAgents.blocks)).toMatch(/getfavi\.vercel\.app/)
+    expect(getAgentPage("/developers").title).toBe("favi developer resources")
+    expect(getAgentPage("/getfavi").title).toBe("getfavi")
     expect(getAgentPage("/docs/vercel").title).toBe(
-      "favi Vercel developer resources"
+      "Vercel developer resources for favi"
     )
-    expect(getAgentPage("/docs/auth").title).toBe("favi authentication")
+    expect(getAgentPage("/docs/auth").title).toBe(
+      "favi authentication (auth docs)"
+    )
     expect(getAgentPage("/docs/webhooks").title).toBe("favi webhooks")
     expect(getAgentPage("/docs/mcp").title).toBe("favi MCP server")
     expect(getAgentPage("/docs/openapi").title).toBe("favi OpenAPI spec")
     expect(getAgentPage("/docs/errors").title).toBe("favi API errors")
+    expect(getAgentPage("/docs/api").title).toBe("favi API docs")
+    expect(getAgentPage("/docs/versioning").title).toBe("favi REST versioning")
+    expect(getAgentPage("/docs/rate-limits").title).toBe("favi rate limits")
   })
 
   it("returns a markdown recovery body for unknown paths", () => {

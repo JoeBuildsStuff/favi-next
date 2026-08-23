@@ -207,9 +207,9 @@ function MockLabel({
 }) {
   return (
     <div className="mb-3">
-      <h2 className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
+      <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
         {children}
-      </h2>
+      </p>
       <p className="text-muted-foreground mt-1 max-w-xl text-[11px] leading-snug">
         {subtitle}
       </p>
@@ -1183,7 +1183,7 @@ function PreviewSettings({
     >
       <div className="flex shrink-0 flex-col gap-3 p-2">
         <div className="px-0.5">
-          <h2 className="text-sm font-semibold tracking-tight">Settings</h2>
+          <p className="text-sm font-semibold tracking-tight">Settings</p>
           <p className="text-muted-foreground text-[11px]">
             Colors, plate, and export
           </p>

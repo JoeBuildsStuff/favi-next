@@ -22,8 +22,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    template: `%s | ${SITE_NAME}`,
+    default: `getfavi (favi) — ${SITE_TAGLINE}`,
+    template: `%s | getfavi`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     "favicon",
     "favicon API",
     "favi developer resources",
+    "Vercel developer resources",
     "Lucide",
     "Tabler",
     "Phosphor",
@@ -49,14 +50,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: SITE_NAME,
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    siteName: "getfavi",
+    title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     url: SITE_ORIGIN,
   },
   twitter: {
     card: "summary",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    title: `getfavi (favi) — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
   },
   icons: {

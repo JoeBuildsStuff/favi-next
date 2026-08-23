@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server"
-
 import { GET_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
+import { apiJson } from "@/lib/api-response"
 import { searchIcons } from "@/lib/catalog"
 
 export const runtime = "nodejs"
@@ -14,7 +13,8 @@ export async function GET(request: Request) {
   const offset = Number(url.searchParams.get("offset") ?? 0)
 
   try {
-    return NextResponse.json(
+    return apiJson(
+      request,
       searchIcons({
         q,
         library: library || null,

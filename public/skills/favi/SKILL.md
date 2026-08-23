@@ -15,24 +15,29 @@ Prefer HTTP against the public API. Do not drive the browser UI unless the user 
 **Base URL:** `https://getfavi.vercel.app`  
 **Local override:** `http://127.0.0.1:3000`
 
-Production rate limits (per client IP, Vercel WAF). Over limit → **429**; wait and retry. Do not poll or retry in a tight loop. Local override is not rate-limited.
+Production rate limits (per client IP, Vercel WAF). Over limit → **429** with `Retry-After`. Responses include `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset`. Do not poll. Local override is not limited.
+
+Canonical paths are `/api/v1/…` (unversioned `/api/…` is a stable alias). See https://getfavi.vercel.app/docs/versioning
 
 | Method | Path | Limit |
 |--------|------|-------|
-| `POST` | `/api/export` | 20 / 60s |
-| `GET` | `/api/icons` and `/api/icons/:library/:name` | 120 / 60s |
-| `GET` | `/api/health` and `/api/libraries` | 40 / 60s |
+| `POST` | `/api/v1/export` | 20 / 60s |
+| `GET` | `/api/v1/icons` and `/api/v1/icons/:library/:name` | 120 / 60s |
+| `GET` | `/api/v1/health` and `/api/v1/libraries` | 40 / 60s |
 
 Typical agent flow (search → one lookup → one export) stays well under these caps.
 
 Human UI: https://getfavi.vercel.app (canonical getfavi domain)  
 Agent index: https://getfavi.vercel.app/llms.txt  
 favi developer resources: https://getfavi.vercel.app/docs  
-favi Vercel developer resources: https://getfavi.vercel.app/docs/vercel  
-favi authentication: https://getfavi.vercel.app/docs/auth  
+favi API docs: https://getfavi.vercel.app/docs/api  
+Vercel developer resources: https://getfavi.vercel.app/docs/vercel  
+favi authentication (auth docs): https://getfavi.vercel.app/docs/auth  
 favi webhooks: https://getfavi.vercel.app/docs/webhooks  
 favi MCP server: https://getfavi.vercel.app/docs/mcp  
-OpenAPI: https://getfavi.vercel.app/openapi.json  
+OpenAPI spec: https://getfavi.vercel.app/openapi.json  
+favi REST versioning: https://getfavi.vercel.app/docs/versioning  
+favi rate limits: https://getfavi.vercel.app/docs/rate-limits  
 API errors: https://getfavi.vercel.app/docs/errors (RFC 9457 problem+json)  
 Source: https://github.com/JoeBuildsStuff/favi-next
 
@@ -40,7 +45,7 @@ Source: https://github.com/JoeBuildsStuff/favi-next
 
 1. Search or look up an icon
 2. Confirm `library`, `name`, and `style` (or use `text` for initials)
-3. `POST /api/export` with color/shape options
+3. `POST /api/v1/export` with color/shape options
 4. Unpack the zip into the target project and wire HTML `<link>` tags if installing as a site favicon
 
 ## API
@@ -48,19 +53,19 @@ Source: https://github.com/JoeBuildsStuff/favi-next
 ### Health
 
 ```bash
-curl -sS https://getfavi.vercel.app/api/health
+curl -sS https://getfavi.vercel.app/api/v1/health
 ```
 
 ### List libraries
 
 ```bash
-curl -sS https://getfavi.vercel.app/api/libraries
+curl -sS https://getfavi.vercel.app/api/v1/libraries
 ```
 
 ### Search icons
 
 ```bash
-curl -sS "https://getfavi.vercel.app/api/icons?q=image&library=lucide&style=outline&limit=12"
+curl -sS "https://getfavi.vercel.app/api/v1/icons?q=image&library=lucide&style=outline&limit=12"
 ```
 
 Query params: `q`, `library`, `style`, `limit` (1–300), `offset`.
@@ -72,13 +77,13 @@ Each hit includes `library`, `name`, `style`, and raw `svg`.
 ### Exact icon
 
 ```bash
-curl -sS "https://getfavi.vercel.app/api/icons/lucide/image?style=outline"
+curl -sS "https://getfavi.vercel.app/api/v1/icons/lucide/image?style=outline"
 ```
 
 ### Export favicon zip
 
 ```bash
-curl -sS -X POST https://getfavi.vercel.app/api/export \
+curl -sS -X POST https://getfavi.vercel.app/api/v1/export \
   -H 'Content-Type: application/json' \
   -d '{
     "library": "lucide",
@@ -99,7 +104,7 @@ curl -sS -X POST https://getfavi.vercel.app/api/export \
 Initials / letters (no library icon) — pass `text` (1–2 Latin letters or digits) instead of `library` / `name`:
 
 ```bash
-curl -sS -X POST https://getfavi.vercel.app/api/export \
+curl -sS -X POST https://getfavi.vercel.app/api/v1/export \
   -H 'Content-Type: application/json' \
   -d '{
     "text": "JT",

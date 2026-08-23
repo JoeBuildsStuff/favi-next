@@ -39,6 +39,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    {
+      url: absoluteUrl("/docs/api"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/docs/versioning"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/docs/rate-limits"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/developers"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/getfavi"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     { url: absoluteUrl("/llms.txt"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: absoluteUrl("/openapi.json"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     {

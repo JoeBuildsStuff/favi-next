@@ -184,7 +184,7 @@ export function IconBrowserSidebar({
       <div className="flex flex-col gap-2 p-2">
         <AppBrandHeader />
         <div className="px-0.5">
-          <h2 className="text-sm font-semibold tracking-tight">Icons</h2>
+          <p className="text-sm font-semibold tracking-tight">Icons</p>
           <p className="text-muted-foreground text-[11px]">
             {loading ? "Loading…" : `${total.toLocaleString()} matches`}
           </p>
@@ -263,9 +263,9 @@ export function IconBrowserSidebar({
 
           {(filteredFavorites.length > 0 || filteredRecents.length > 0) && (
             <div className="px-0.5">
-              <h3 className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
+              <p className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
                 Browse
-              </h3>
+              </p>
             </div>
           )}
 
@@ -341,9 +341,9 @@ function HistorySection({
 }) {
   return (
     <section className="flex flex-col gap-1.5">
-      <h3 className="text-muted-foreground px-0.5 text-[10px] font-medium tracking-wide uppercase">
+      <p className="text-muted-foreground px-0.5 text-[10px] font-medium tracking-wide uppercase">
         {title}
-      </h3>
+      </p>
       <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 lg:grid-cols-3">
         {entries.map((entry) => {
           const icon = entryToIconItem(entry)
