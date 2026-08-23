@@ -6,9 +6,10 @@ import {
   type FaviconSettings,
   type FaviconSourceMode,
 } from "@/lib/favicon-settings"
+import { SITE_ORIGIN } from "@/lib/site"
 
 /** Public Vercel deployment agents should hit (not localhost or OptiPlex). */
-export const FAVI_PUBLIC_BASE = "https://getfavi.vercel.app"
+export const FAVI_PUBLIC_BASE = SITE_ORIGIN
 
 export type InstallPromptInput = {
   selected: IconItem | null

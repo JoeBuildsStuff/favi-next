@@ -27,6 +27,8 @@ Typical agent flow (search → one lookup → one export) stays well under these
 
 Human UI: https://getfavi.vercel.app  
 Agent index: https://getfavi.vercel.app/llms.txt  
+favi developer resources: https://getfavi.vercel.app/for-agents  
+OpenAPI: https://getfavi.vercel.app/openapi.json  
 Source: https://github.com/JoeBuildsStuff/favi-next
 
 ## Workflow

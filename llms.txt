@@ -13,6 +13,12 @@ Production is rate-limited by client IP (Vercel WAF). Over limit → HTTP 429; w
 
 This is the Next.js app (public source). Local override: http://127.0.0.1:3000
 
+## When to use favi
+
+Use favi when the job is to search a free icon library and export a favicon package (SVG, ICO, apple-touch, PWA / maskable) via HTTP. Call `GET /api/icons` then `POST /api/export`. Do not drive the browser UI.
+
+Do not use favi for an MCP server, OAuth, webhooks, a paid icon marketplace, or generating original artwork. Those are not part of this product.
+
 ## Install agent skill
 
 ```bash
@@ -25,10 +31,16 @@ Install a single skill:
 npx skills add JoeBuildsStuff/favi-next --skill favi
 ```
 
-## Docs
+## favi developer resources
+
+- [favi developer resources](https://getfavi.vercel.app/for-agents): API docs, authentication notes, OpenAPI, and agent workflow (Vercel-hosted origin)
+- [favi developer docs](https://getfavi.vercel.app/docs): Same favi developer resources at /docs
+- [favi OpenAPI spec](https://getfavi.vercel.app/openapi.json): OpenAPI 3.1 for the public HTTP API
+- [favi API catalog](https://getfavi.vercel.app/.well-known/api-catalog): RFC 9727 linkset
 - [Agent skill (live)](https://getfavi.vercel.app/skills/favi/SKILL.md): Step-by-step API workflow for searching icons and exporting favicons
 - [GitHub skill](https://github.com/JoeBuildsStuff/favi-next/tree/main/skills/favi): Canonical `SKILL.md` in this public repo
 - [Human UI](https://getfavi.vercel.app/): Visual search, compose, download zip
+- [Sitemap](https://getfavi.vercel.app/sitemap.xml): Canonical public URLs
 
 ## API
 - [Health](https://getfavi.vercel.app/api/health): Service status and indexed icon count

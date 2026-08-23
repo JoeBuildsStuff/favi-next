@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { jsonLdScript } from "@/lib/json-ld"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_ORIGIN, SITE_TAGLINE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const geistSans = Geist({
@@ -18,8 +20,45 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "favi-next",
-  description: "Search icon libraries and export favicon packages",
+  metadataBase: new URL(SITE_ORIGIN),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "favi",
+    "getfavi",
+    "favicon",
+    "favicon API",
+    "favi developer resources",
+    "Lucide",
+    "Tabler",
+    "Phosphor",
+    "Remix Icon",
+    "PWA icons",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_ORIGIN }],
+  alternates: {
+    canonical: "/",
+    types: {
+      "text/markdown": "/",
+      "application/openapi+json": "/openapi.json",
+    },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: SITE_ORIGIN,
+  },
+  twitter: {
+    card: "summary",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
@@ -37,6 +76,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       )}
     >
       <body className="h-full min-h-full bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLdScript(),
+          }}
+        />
         <ThemeProvider>
           <TooltipProvider>
             {children}
