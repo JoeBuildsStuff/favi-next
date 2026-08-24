@@ -8,10 +8,13 @@ const root = path.dirname(fileURLToPath(import.meta.url))
 export default defineConfig({
   test: {
     environment: "node",
+    environmentMatchGlobs: [["**/*.test.tsx", "jsdom"]],
+    setupFiles: ["./src/test/setup.ts"],
   },
   resolve: {
     alias: {
       "@": path.resolve(root, "src"),
+      "server-only": path.resolve(root, "src/test/server-only-stub.ts"),
     },
   },
 })

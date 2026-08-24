@@ -129,6 +129,10 @@ function hugeiconsJsToSvg(jsText) {
 const icons = []
 let id = 1
 
+function searchHay({ name, tags, style, library }) {
+  return `${name} ${tags} ${style} ${library}`.toLowerCase()
+}
+
 function addIcon({ library, name, style, tags, file }) {
   icons.push({
     id: id++,
@@ -137,6 +141,7 @@ function addIcon({ library, name, style, tags, file }) {
     style,
     tags,
     file,
+    search: searchHay({ name, tags, style, library }),
   })
 }
 

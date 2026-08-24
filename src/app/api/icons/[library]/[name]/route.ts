@@ -1,6 +1,6 @@
 import { GET_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
 import { apiJson } from "@/lib/api-response"
-import { getIcon } from "@/lib/catalog"
+import { getIcon } from "@/server/catalog"
 
 export const runtime = "nodejs"
 

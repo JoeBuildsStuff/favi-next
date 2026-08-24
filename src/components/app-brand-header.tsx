@@ -14,6 +14,8 @@ export function AppBrandHeader({
         className
       )}
     >
+      {/* Decorative local SVG mark — next/image does not optimize SVGs. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/favicon.svg"
         alt=""

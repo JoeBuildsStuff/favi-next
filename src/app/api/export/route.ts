@@ -1,7 +1,7 @@
 import { POST_ONLY, methodNotAllowed, problemResponse } from "@/lib/api-error"
 import { apiBody } from "@/lib/api-response"
-import { getIcon } from "@/lib/catalog"
-import { buildFaviconZip } from "@/lib/favicon-export"
+import { getIcon } from "@/server/catalog"
+import { buildFaviconZip } from "@/server/favicon-export"
 import { normalizeInitials } from "@/lib/favicon-svg"
 import type { ExportBody, PlateShape } from "@/lib/types"
 

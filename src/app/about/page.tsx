@@ -1,20 +1,13 @@
-import type { Metadata } from "next"
-
-import { AgentDocShell } from "@/components/agent-doc-shell"
 import { aboutBlocks } from "@/lib/agent-pages"
+import { createAgentDocPage } from "@/lib/agent-pages/doc-page"
 
-export const metadata: Metadata = {
+const page = createAgentDocPage({
+  path: "/about",
   title: "About getfavi",
   description:
     "About getfavi (favi): a public favicon picker and HTTP API at https://getfavi.vercel.app, maintained as open source.",
-  alternates: {
-    canonical: "/about",
-    types: {
-      "text/markdown": "/about",
-    },
-  },
-}
+  blocks: aboutBlocks,
+})
 
-export default function AboutPage() {
-  return <AgentDocShell blocks={aboutBlocks} />
-}
+export const metadata = page.metadata
+export default page.Page

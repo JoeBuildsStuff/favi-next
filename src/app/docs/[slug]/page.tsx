@@ -7,6 +7,7 @@ import {
   getAgentPage,
   type DeveloperDocSlug,
 } from "@/lib/agent-pages"
+import { createAgentDocMetadata } from "@/lib/agent-pages/doc-page"
 
 function isDocSlug(value: string): value is DeveloperDocSlug {
   return (DEVELOPER_DOC_SLUGS as readonly string[]).includes(value)
@@ -26,16 +27,11 @@ export async function generateMetadata({
     return { title: "Page not found" }
   }
   const page = getAgentPage(`/docs/${slug}`)
-  return {
+  return createAgentDocMetadata({
+    path: `/docs/${slug}`,
     title: page.title,
     description: `favi developer resources: ${page.title} for the Vercel-hosted HTTP API at getfavi.vercel.app.`,
-    alternates: {
-      canonical: `/docs/${slug}`,
-      types: {
-        "text/markdown": `/docs/${slug}`,
-      },
-    },
-  }
+  })
 }
 
 export default async function DeveloperDocPage({
